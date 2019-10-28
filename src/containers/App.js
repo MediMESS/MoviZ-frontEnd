@@ -1,11 +1,18 @@
 import React, {Component} from 'react';
 import './App.css';
-import Hello from '../components/Hello';
+import Home from '../components/home/Home';
+import Navigation from '../components/Navigation';
+import './navigation-home.css'
 
 class App extends Component  {
   render() {
     return (
-      <Hello />
+      <div>
+        <div className="navigation-home">
+          <Navigation />
+          <Home />
+        </div>
+      </div>
     );
   }
 }
