@@ -3,6 +3,7 @@ import './App.css';
 import Slogan from '../components/slogan/Slogan';
 import NavigationUnSigned from '../components/navigation/NavigationUnSigned';
 import SignIn from '../components/signIn/SignIn';
+import Register from '../components/register/Register';
 import DialogMustSignIn from '../components/dialogs/DialogMustSignIn';
 
 import './navigation-home.css'
@@ -81,7 +82,7 @@ class App extends Component  {
                                 :<div></div>
                             }
                           </div>)
-                        : <h1>REGISTER</h1>
+                        : <Register onProfileStatusChange={this.onProfileStatusChange}/>
                       }
                     </div>)
                   :(<h1>ABOUT</h1>)
