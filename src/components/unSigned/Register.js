@@ -15,10 +15,10 @@ import Container from '@material-ui/core/Container';
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+    <Typography variant="body1" style={{color:'black'}} align="center">
+      {'Created By '}
+      <Link color="primary" href="https://github.com/MediMESS" style={{fontWeight: 800}}>
+        Mehdi Messarat
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -33,29 +33,29 @@ const useStyles = makeStyles(theme => ({
     },
   },
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(4),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.main,
   },
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: theme.spacing(1, 0),
   },
 }));
 
-export default function SignUp() {
+const SignUp = ({onProfileStatusChange, onUnSignedPageStateChange}) =>  {
   const classes = useStyles();
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" style={{backgroundColor:"white"}}>
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -65,7 +65,7 @@ export default function SignUp() {
           Sign up
         </Typography>
         <form className={classes.form} noValidate>
-          <Grid container spacing={2}>
+          <Grid container spacing={1}>
             <Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="fname"
@@ -113,10 +113,25 @@ export default function SignUp() {
               />
             </Grid>
             <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="favouriteMovie"
+                label="What's your favourite movie ?"
+                type="favouriteMovie"
+                id="favouriteMovie"
+                autoComplete="fav-movie"
               />
+            </Grid>
+            <Grid item xs={12} style={{display:'flex'}} display="flex">
+              <Checkbox style={{padding:'5px'}} color="primary" />
+              <Typography style={{color:'black', alignSelf:'center'}}>
+                {'By Checking. I agree to confirm '}
+                <Link color="primary" href="https://policies.google.com/terms?hl=en-US" style={{fontWeight: 800}}>
+                  Moviz Policy
+                </Link>{' '}
+              </Typography>
             </Grid>
           </Grid>
           <Button
@@ -125,21 +140,28 @@ export default function SignUp() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={() => {onProfileStatusChange('signed')}}
           >
             Sign Up
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link
+                href="#"
+                variant="body2"
+                style={{cursor:'pointer'}}
+                onClick={() => {onUnSignedPageStateChange('signIn')}}>
                 Already have an account? Sign in
               </Link>
             </Grid>
           </Grid>
         </form>
       </div>
-      <Box mt={5}>
+      <Box py={1}>
         <Copyright />
       </Box>
     </Container>
   );
 }
+
+export default SignUp;

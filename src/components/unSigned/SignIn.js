@@ -15,10 +15,10 @@ import Container from '@material-ui/core/Container';
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+    <Typography variant="body1" style={{color:'black'}} align="center">
+      {'Created By '}
+      <Link color="primary" href="https://github.com/MediMESS" style={{fontWeight: 800}}>
+        Mehdi Messarat
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -47,11 +47,11 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: theme.spacing(1, 0),
   },
 }));
 
-const SignIn = ({onProfileStatusChange}) => {
+const SignIn = ({onProfileStatusChange, onUnSignedPageStateChange}) => {
   const classes = useStyles();
   return (
     <Container component="main" maxWidth="xs" style={{backgroundColor:"white"}}>
@@ -107,21 +107,19 @@ const SignIn = ({onProfileStatusChange}) => {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link
+                variant="body2"
+                style={{cursor:'pointer'}}
+                onClick={() => {onUnSignedPageStateChange('singUp')}}
+                >
                 {"No Account? Sign Up"}
               </Link>
             </Grid>
           </Grid>
         </form>
       </div>
-      <Box mt={3}>
-        <Typography variant="button">
-          Created By
-          <Button
-            color="primary"
-            href="https://github.com/MediMESS"
-          >Mehdi Messarat</Button>
-        </Typography>
+      <Box py={2}>
+        <Copyright />
       </Box>
     </Container>
   );
