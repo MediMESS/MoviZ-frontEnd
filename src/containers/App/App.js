@@ -21,7 +21,6 @@ class App extends Component  {
 
 
   render() {
-    console.log(this.props);
     const {profileStatus, onProfileStatusChange} = this.props;
     return (
         <div>

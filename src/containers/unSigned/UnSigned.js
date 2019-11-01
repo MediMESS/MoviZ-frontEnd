@@ -4,73 +4,70 @@ import NavigationUnSigned from '../../components/unSigned/NavigationUnSigned';
 import SignIn from '../../components/unSigned/SignIn';
 import Register from '../../components/unSigned/Register';
 import DialogMustSignIn from '../../components/unSigned/DialogMustSignIn';
+import {connect} from 'react-redux';
+import {setUnSignedPageState, setOpenMustSignInDialog} from './UnSignedActions';
+import './UnSigned.css';
 
-// import Slogan from '../../components/unSigned/slogan/Slogan';
-// import NavigationUnSigned from '../../components/unSigned/navigation/NavigationUnSigned';
-// import SignIn from '../../components/unSigned/signIn/SignIn';
-// import Register from '../../components/unSigned/register/Register';
-// import DialogMustSignIn from '../../components/unSigned/dialogs/DialogMustSignIn';
-import './UnSigned.css'
+const mapStateToProps = (state) => {
+  return {
+    unSignedPageState: state.unSignedPageStateChange.unSignedPageState,
+    openMustSignInDialog: state.mustSignInDialogChange.openMustSignInDialog
+  }
+}
 
+const mapDispatchStateToProps = (dispatch) => {
+  return {
+    onUnSignedPageStateChange: (current_unsigned_page_state) => {
+      if(current_unsigned_page_state === 'blog')
+        dispatch(setOpenMustSignInDialog(true));
+      dispatch(setUnSignedPageState(current_unsigned_page_state));
+    },
+    onMustOpenSignInDialogChange: (open) => {
+      dispatch(setOpenMustSignInDialog(open))
+    }
+  };
+}
 
 class UnSigned extends Component  {
-  constructor(props){
-    super(props);
-    this.state =
-    {
-        unSignedPageState:'signIn',
-        openBlogDialog: false
-    }
-  }
-
-  onUnsignedOpenBlog = (open) => {
-    this.setState(prevState =>
-      ({
-        ...prevState.unSigned,
-        openBlogDialog: open
-      })
-    )
-  }
-  onUnSignedPageStateChange = (state) => {
-    this.setState(prevState => ({
-          ...prevState.unSigned,
-          unSignedPageState: state
-      })
-    );
-    if(state == 'blog')
-      this.onUnsignedOpenBlog(true)
-  }
 
   render() {
-    const {onProfileStatusChange} = this.props;
+    console.log(this.props);
+    const {
+      unSignedPageState,
+      onProfileStatusChange,
+      openMustSignInDialog,
+      onUnSignedPageStateChange,
+      onMustOpenSignInDialogChange
+    } = this.props;
+
     return (
       <div>
           <NavigationUnSigned
-            unSignedPageState={this.state.unSignedPageState}
-            onUnSignedPageStateChange={this.onUnSignedPageStateChange}
-            onUnsignedOpenBlog = {this.onUnsignedOpenBlog}/>
+            unSignedPageState={unSignedPageState}
+            onUnSignedPageStateChange={onUnSignedPageStateChange}
+            onUnsignedOpenBlog = {onMustOpenSignInDialogChange}/>
           {
-            (this.state.unSignedPageState !== 'about')
+            (unSignedPageState !== 'about')
             ?(<div>
                 <Slogan />
                 {
-                  this.state.unSignedPageState === 'signIn' || this.state.unSignedPageState === 'blog'
+                  unSignedPageState === 'signIn' || unSignedPageState === 'blog'
                   ?(<div>
                       <SignIn
                         onProfileStatusChange={onProfileStatusChange}
-                        onUnSignedPageStateChange={this.onUnSignedPageStateChange}/>
+                        onUnSignedPageStateChange={onUnSignedPageStateChange}/>
                       {
-                        this.state.unSignedPageState === 'blog'
+                        unSignedPageState === 'blog'
                           ?(<DialogMustSignIn
-                            open={this.state.openBlogDialog}
-                            onUnsignedOpenBlog = {this.onUnsignedOpenBlog}
+                            open={openMustSignInDialog}
+                            onUnsignedOpenBlog = {onMustOpenSignInDialogChange}
                             />)
                           :<div></div>
                       }
                     </div>)
                   : <Register
                       onProfileStatusChange={onProfileStatusChange}
-                      onUnSignedPageStateChange={this.onUnSignedPageStateChange}/>
+                      onUnSignedPageStateChange={onUnSignedPageStateChange}/>
                 }
               </div>)
             :(<h1>ABOUT</h1>)
@@ -80,4 +77,4 @@ class UnSigned extends Component  {
     }
 }
 
-export default UnSigned;
+export default connect(mapStateToProps, mapDispatchStateToProps)(UnSigned);

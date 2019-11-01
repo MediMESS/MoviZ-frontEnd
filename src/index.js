@@ -4,12 +4,17 @@ import {createStore, applyMiddleware, combineReducers} from 'redux';
 import {createLogger} from 'redux-logger';
 import {Provider} from 'react-redux';
 import {onProfileStatusChange} from './containers/App/AppReducers.js';
+import {unSignedPageStateChange, mustSignInDialogChange} from './containers/unSigned/UnSignedReducers.js';
 import './index.css';
 import App from './containers/App/App';
 import * as serviceWorker from './serviceWorker';
 
 const logger = createLogger();
-const rootReducer = combineReducers({onProfileStatusChange});
+const rootReducer = combineReducers({
+  onProfileStatusChange,
+  unSignedPageStateChange,
+  mustSignInDialogChange
+});
 const store = createStore(rootReducer, applyMiddleware(logger))
 
 ReactDOM.render(

@@ -11,7 +11,6 @@ const DialogMustSignIn = ({open, onUnsignedOpenBlog}) => {
       <div>
         <Dialog
           open={open}
-          onClose={() => {onUnsignedOpenBlog('false')}}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
