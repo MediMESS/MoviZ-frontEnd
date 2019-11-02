@@ -4,8 +4,6 @@ import UnSigned from '../unSigned/UnSigned';
 import {connect} from 'react-redux';
 import {setProfileStatus} from './AppActions';
 
-
-
 const mapStateToProps = (state) => {
   return {
     profileStatus: state.onProfileStatusChange.profileStatus
