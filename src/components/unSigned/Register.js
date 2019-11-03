@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 function Copyright() {
@@ -26,14 +26,13 @@ function Copyright() {
   );
 }
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   '@global': {
     body: {
       backgroundColor: theme.palette.common.white,
     },
   },
   paper: {
-    marginTop: theme.spacing(4),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -49,119 +48,168 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(1, 0),
   },
-}));
+});
 
-const SignUp = ({onProfileStatusChange, onUnSignedPageStateChange}) =>  {
-  const classes = useStyles();
+class SignUp extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      name:'',
+      email: '',
+      password: '',
+      registerError: false
+    }
+  }
 
-  return (
-    <Container component="main" maxWidth="xs" style={{backgroundColor:"white"}}>
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign up
-        </Typography>
-        <form className={classes.form} noValidate>
-          <Grid container spacing={1}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="fname"
-                name="firstName"
-                variant="outlined"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-              />
+  onNameChange = (event) => {
+    this.setState({name: event.target.value})
+  }
+  onEmailChange = (event) => {
+    this.setState({email: event.target.value})
+  }
+  onPasswordChange = (event) => {
+    this.setState({password: event.target.value})
+  }
+
+  onRegister = () => {
+    fetch('http://localhost:4000/register', {
+      method: 'post',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        email: this.state.email,
+        name: this.state.name,
+        password: this.state.password
+      })
+    })
+      .then(response => response.json())
+      .then(user=>{
+        if(user.id){
+          this.props.onProfileStatusChange('signed');
+        }
+        else
+          this.setState({registerError: true});
+      })
+
+  }
+  render() {
+    const {classes, onProfileStatusChange, onUnSignedPageStateChange} = this.props;
+    return (
+      <Container component="main" maxWidth="xs" style={{backgroundColor:"white"}}>
+        <CssBaseline />
+        <div className={classes.paper}>
+        {
+          this.state.registerError ?
+          <h2 style={{color:'red', marginBottom:'0'}}>Unable to register! Please fill the form with correct information.</h2>
+          :<div></div>
+        }
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign up
+          </Typography>
+          <form className={classes.form} noValidate>
+            <Grid container spacing={1}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="fname"
+                  name="firstName"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="firstName"
+                  label="First Name"
+                  autoFocus
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="lastName"
+                  label="Last Name"
+                  name="lastName"
+                  autoComplete="lname"
+                  onChange={this.onNameChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  onChange={this.onEmailChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  onChange={this.onPasswordChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="favouriteMovie"
+                  label="What's your favourite movie ?"
+                  type="favouriteMovie"
+                  id="favouriteMovie"
+                  autoComplete="fav-movie"
+                />
+              </Grid>
+              <Grid item xs={12} style={{display:'flex'}} display="flex">
+                <Checkbox style={{padding:'5px'}} color="primary" />
+                <Typography style={{color:'black', alignSelf:'center'}}>
+                  {'By Checking. I agree to confirm '}
+                  <Link color="primary" href="https://policies.google.com/terms?hl=en-US" style={{fontWeight: 800}}>
+                    Moviz Policy
+                  </Link>{' '}
+                </Typography>
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
-              />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              onClick={this.onRegister}
+              href="#"
+            >
+              Sign Up
+            </Button>
+            <Grid container justify="flex-end">
+              <Grid item>
+                <Link
+                  href="#"
+                  variant="body2"
+                  style={{cursor:'pointer'}}
+                  onClick={() => {onUnSignedPageStateChange('signIn')}}>
+                  Already have an account? Sign in
+                </Link>
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="favouriteMovie"
-                label="What's your favourite movie ?"
-                type="favouriteMovie"
-                id="favouriteMovie"
-                autoComplete="fav-movie"
-              />
-            </Grid>
-            <Grid item xs={12} style={{display:'flex'}} display="flex">
-              <Checkbox style={{padding:'5px'}} color="primary" />
-              <Typography style={{color:'black', alignSelf:'center'}}>
-                {'By Checking. I agree to confirm '}
-                <Link color="primary" href="https://policies.google.com/terms?hl=en-US" style={{fontWeight: 800}}>
-                  Moviz Policy
-                </Link>{' '}
-              </Typography>
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={() => {onProfileStatusChange('signed')}}
-          >
-            Sign Up
-          </Button>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Link
-                href="#"
-                variant="body2"
-                style={{cursor:'pointer'}}
-                onClick={() => {onUnSignedPageStateChange('signIn')}}>
-                Already have an account? Sign in
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
-      </div>
-      <Box py={1}>
-        <Copyright />
-      </Box>
-    </Container>
-  );
+          </form>
+        </div>
+        <Box py={1}>
+          <Copyright />
+        </Box>
+      </Container>
+    );
+  }
 }
-
-export default SignUp;
+export default withStyles(styles)(SignUp);

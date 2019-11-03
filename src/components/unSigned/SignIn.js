@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 function Copyright() {
@@ -26,7 +26,7 @@ function Copyright() {
   );
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = theme => ({
   '@global': {
     body: {
       backgroundColor: theme.palette.common.white,
@@ -49,80 +49,123 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(1, 0),
   },
-}));
+});
 
-const SignIn = ({onProfileStatusChange, onUnSignedPageStateChange}) => {
-  const classes = useStyles();
-  return (
-    <Container component="main" maxWidth="xs" style={{backgroundColor:"white"}}>
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={() => {onProfileStatusChange('signed')}}
-          >
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs style={{textAlign:'left'}}>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
+class SignIn extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+      signInError: false
+    }
+  }
+
+  onEmailChange = (e) => {this.setState({email: e.target.value})}
+
+  onPasswordChange = (e) => {this.setState({password: e.target.value})}
+
+  onSignIn = () => {
+    fetch('http://localhost:4000/signIn', {
+      method: 'post',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        email: this.state.email,
+        password: this.state.password
+      })
+    })
+      .then(response => response.json())
+      .then(user => {
+        if(user[0].id)
+          this.props.onProfileStatusChange('signed')
+        else
+          this.setState({signInError: true})
+    });
+  }
+
+  render ()
+  {
+
+   const {classes, onProfileStatusChange, onUnSignedPageStateChange} = this.props;
+    return (
+      <Container component="main" maxWidth="xs" style={{backgroundColor:"white"}}>
+        <CssBaseline />
+        <div className={classes.paper}>
+        {
+          this.state.signInError ?
+          <h2 style={{color:'red', marginBottom:'0'}}>WRONG CREDENTIALS!</h2>
+          :<div></div>
+        }
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
+          <form className={classes.form} noValidate>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              onChange={this.onEmailChange}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              onChange={this.onPasswordChange}
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              href="#"
+              onClick={this.onSignIn}
+            >
+              Sign In
+            </Button>
+            <Grid container>
+              <Grid item xs style={{textAlign:'left'}}>
+                <Link href="#" variant="body2">
+                  Forgot password?
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link
+                  variant="body2"
+                  style={{cursor:'pointer'}}
+                  onClick={() => {onUnSignedPageStateChange('singUp')}}
+                  >
+                  {"No Account? Sign Up"}
+                </Link>
+              </Grid>
             </Grid>
-            <Grid item>
-              <Link
-                variant="body2"
-                style={{cursor:'pointer'}}
-                onClick={() => {onUnSignedPageStateChange('singUp')}}
-                >
-                {"No Account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
-      </div>
-      <Box py={2}>
-        <Copyright />
-      </Box>
-    </Container>
-  );
+          </form>
+        </div>
+        <Box py={2}>
+          <Copyright />
+        </Box>
+      </Container>
+    );
+  }
 }
-
-export default SignIn;
+export default withStyles(useStyles)(SignIn);

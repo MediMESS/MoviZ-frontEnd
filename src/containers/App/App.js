@@ -6,20 +6,22 @@ import {setProfileStatus} from './AppActions';
 
 const mapStateToProps = (state) => {
   return {
-    profileStatus: state.onProfileStatusChange.profileStatus
+    profileStatus: state.onProfileStatusChange.profileStatus,
+    unSignedPageState: state.unSignedPageStateChange.unSignedPageState
   }
 };
 
 const mapDispatchStateToProps = dispatch => {
   return {
-    onProfileStatusChange: (status) => dispatch(setProfileStatus(status))
+    onProfileStatusChange: (status) => {
+      return dispatch(setProfileStatus(status));
+    }
   }
 }
 class App extends Component  {
 
-
   render() {
-    const {profileStatus, onProfileStatusChange} = this.props;
+    const {profileStatus, onProfileStatusChange, unSignedPageState} = this.props;
     return (
         <div>
           {
