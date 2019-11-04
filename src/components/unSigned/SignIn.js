@@ -67,7 +67,8 @@ class SignIn extends Component {
   onPasswordChange = (e) => {this.setState({password: e.target.value})}
 
   onSignIn = () => {
-    fetch('https://moviz-app.herokuapp.com/signIn', {
+    // fetch('https://moviz-app.herokuapp.com/signIn', {
+    fetch('https://localhost:4000/signIn', {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({

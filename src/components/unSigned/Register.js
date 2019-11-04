@@ -72,7 +72,8 @@ class SignUp extends Component {
   }
 
   onRegister = () => {
-    fetch('https://moviz-app.herokuapp.com/register', {
+    // fetch('https://moviz-app.herokuapp.com/register', {
+    fetch('http://localhost:4000/register', {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({

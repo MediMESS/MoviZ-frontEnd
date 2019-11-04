@@ -27,7 +27,7 @@ class App extends Component  {
           {
               profileStatus === 'unSigned'
               ?<UnSigned onProfileStatusChange={onProfileStatusChange}/>
-              :<a href='https://moviz-app.herokuapp.com/' style={{ fontSize: '100px'}}>you've signed LOG OUT!</a>
+              :<a href='http://localhost:3000' style={{ fontSize: '100px'}}>you've signed LOG OUT!</a>
           }
         </div>
     );
