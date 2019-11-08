@@ -5,14 +5,15 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
+import LinkMaterialUi from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Link as LinkRouter } from 'react-router-dom';
+import { Link as LinkRouter, Redirect } from 'react-router-dom';
+
 import 'common/UnSigned.css';
 import {
   NavigationUnSigned,
@@ -24,9 +25,9 @@ function Copyright() {
   return (
     <Typography variant="body1" style={{color:'black'}} align="center">
       {'Created By '}
-      <Link color="primary" href="https://github.com/MediMESS" style={{fontWeight: 800}}>
+      <LinkMaterialUi color="primary" href="https://github.com/MediMESS" style={{fontWeight: 800}}>
         Mehdi Messarat
-      </Link>{' '}
+      </LinkMaterialUi>{' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -73,8 +74,8 @@ class SignIn extends Component {
 
   onPasswordChange = (e) => {this.setState({password: e.target.value})}
 
-  onSignIn = () => {
-    // fetch('https://moviz-app.herokuapp.com/signIn', {
+  onSignIn = (e) => {
+    // fetch('https://moviz-  app.herokuapp.com/signIn', {
     fetch('http://localhost:4000/signIn', {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
@@ -86,9 +87,16 @@ class SignIn extends Component {
       .then(response => response.json())
       .then(user => {
         if(user[0].id)
-          console.log("NICEEEEEEE");
-        else
+        {
+          console.log("Signed");
+          console.log("ALOOOOOOOOOOOOOOOOOOO\n\n\n\n\n\n\n\nakdsjalk");
+          return <Redirect to='/dashboard' />
+
+        }
+        else{
           this.setState({signInError: true})
+          return <Redirect to='/signIn' />
+        }
     });
   }
 
@@ -156,18 +164,18 @@ class SignIn extends Component {
               </Button>
               <Grid container>
                 <Grid item xs style={{textAlign:'left'}}>
-                  <Link href="#" variant="body2">
+                  <LinkMaterialUi href="#" variant="body2">
                     Forgot password?
-                  </Link>
+                  </LinkMaterialUi>
                 </Grid>
                 <Grid item>
-                  <Link
+                  <LinkRouter
                     variant="body2"
                     style={{cursor:'pointer'}}
-                    href="/register"
+                    to="/register"
                     >
                     {"No Account? Sign Up"}
-                  </Link>
+                  </LinkRouter>
                 </Grid>
               </Grid>
             </form>

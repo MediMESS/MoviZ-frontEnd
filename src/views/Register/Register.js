@@ -5,7 +5,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
+import LinkMaterialUi from '@material-ui/core/Link';
+import {Link as LinkRouter} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -22,9 +23,9 @@ function Copyright() {
   return (
     <Typography variant="body1" style={{color:'black'}} align="center">
       {'Created By '}
-      <Link color="primary" href="https://github.com/MediMESS" style={{fontWeight: 800}}>
+      <LinkMaterialUi color="primary" href="https://github.com/MediMESS" style={{fontWeight: 800}}>
         Mehdi Messarat
-      </Link>{' '}
+      </LinkMaterialUi>{' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -184,9 +185,9 @@ class SignUp extends Component {
                   <Checkbox style={{padding:'5px'}} color="primary" />
                   <Typography style={{color:'black', alignSelf:'center'}}>
                     {'By Checking. I agree to confirm '}
-                    <Link color="primary" href="https://policies.google.com/terms?hl=en-US" style={{fontWeight: 800}}>
+                    <LinkMaterialUi color="primary" href="https://policies.google.com/terms?hl=en-US" style={{fontWeight: 800}}>
                       Moviz Policy
-                    </Link>{' '}
+                    </LinkMaterialUi>{' '}
                   </Typography>
                 </Grid>
               </Grid>
@@ -203,13 +204,13 @@ class SignUp extends Component {
               </Button>
               <Grid container justify="flex-end">
                 <Grid item>
-                  <Link
-                    href="#"
+                  <LinkRouter
+                    to="/signIn"
                     variant="body2"
                     style={{cursor:'pointer'}}
-                    href="/register">
+                    >
                     Already have an account? Sign in
-                  </Link>
+                  </LinkRouter>
                 </Grid>
               </Grid>
             </form>

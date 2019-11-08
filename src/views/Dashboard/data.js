@@ -4,26 +4,20 @@ export default [
   {
     id: uuid(),
     title: 'Aladin (2019)',
-    description:
-      'Dropbox is a file hosting service that offers cloud storage, file synchronization, a personal cloud.',
     imageUrl: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/bset-kids-movies-2019-aladdin-1555082928.jpg',
     totalDownloads: '594',
     updatedAt: '27/03/2019'
   },
   {
     id: uuid(),
-    title: 'Dora and the lost city of gold',
-    description:
-      'Medium is an online publishing platform developed by Evan Williams, and launched in August 2012.',
-    imageUrl: 'https://amc-theatres-res.cloudinary.com/image/upload/f_auto,fl_lossy,h_465,q_auto,w_310/v1562680032/amc-cdn/production/2/movies/56400/56408/PosterDynamic/83473.jpg',
+    title: 'Joker',
+    imageUrl: 'https://m.media-amazon.com/images/M/MV5BNGVjNWI4ZGUtNzE0MS00YTJmLWE0ZDctN2ZiYTk2YmI3NTYyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SY1000_CR0,0,674,1000_AL_.jpg',
     totalDownloads: '625',
     createdAt: '31/03/2019'
   },
   {
     id: uuid(),
     title: 'Jumanji',
-    description:
-      'Slack is a cloud-based set of team collaboration tools and services, founded by Stewart Butterfield.',
     imageUrl: 'https://uk.imageservice.sky.com/contentid/A5EK5E17HwqxP4fGsGM4N/BOXART/266/394',
     totalDownloads: '857',
     createdAt: '03/04/2019'
@@ -31,47 +25,106 @@ export default [
   {
     id: uuid(),
     title: 'Avengers EndGame',
-    description:
-      'Lyft is an on-demand transportation company based in San Francisco, California.',
     imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/81MUlAYh4LL._SL1500_.jpg',
     totalDownloads: '406',
     createdAt: '04/04/2019'
   },
   {
     id: uuid(),
-    title: 'Aladin (2019)',
-    description:
-      'Dropbox is a file hosting service that offers cloud storage, file synchronization, a personal cloud.',
-    imageUrl: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/bset-kids-movies-2019-aladdin-1555082928.jpg',
+    title: 'How to Train Your Dragon: The Hidden World',
+    imageUrl: 'https://m.media-amazon.com/images/M/MV5BMjIwMDIwNjAyOF5BMl5BanBnXkFtZTgwNDE1MDc2NTM@._V1_SY1000_CR0,0,631,1000_AL_.jpg',
     totalDownloads: '594',
     updatedAt: '27/03/2019'
   },
   {
     id: uuid(),
+    title: 'The Irishman',
+    imageUrl: 'https://m.media-amazon.com/images/M/MV5BMGUyM2ZiZmUtMWY0OC00NTQ4LThkOGUtNjY2NjkzMDJiMWMwXkEyXkFqcGdeQXVyMzY0MTE3NzU@._V1_SY1000_CR0,0,682,1000_AL_.jpg',
+    totalDownloads: '625',
+    createdAt: '31/03/2019'
+  },
+  {
+    id: uuid(),
+    title: 'Super Deluxe',
+    imageUrl: 'https://m.media-amazon.com/images/M/MV5BOGFhYzM1ZDYtNDYzMi00MWEyLTk2NjAtZTg5ZmZmNjljOGE5XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg',
+    totalDownloads: '857',
+    createdAt: '03/04/2019'
+  },
+  {
+    id: uuid(),
+    title: 'Dave Chappelle: Sticks & Stones',
+    imageUrl: 'https://m.media-amazon.com/images/M/MV5BOWQ2NDZhNGMtOWMwNS00ZWJhLTk2ZGEtY2VkOTY3ZTljNDQ2XkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SY1000_SX800_AL_.jpg',
+    totalDownloads: '857',
+    createdAt: '03/04/2019'
+  },
+  {
+    id: uuid(),
+    title: 'Once Upon A Time... In Hollywood',
+    imageUrl: 'https://m.media-amazon.com/images/M/MV5BOTg4ZTNkZmUtMzNlZi00YmFjLTk1MmUtNWQwNTM0YjcyNTNkXkEyXkFqcGdeQXVyNjg2NjQwMDQ@._V1_SY1000_CR0,0,674,1000_AL_.jpg',
+    totalDownloads: '857',
+    createdAt: '03/04/2019'
+  },
+  {
+    id: uuid(),
+    title: 'Toy Story 4',
+    imageUrl: 'https://m.media-amazon.com/images/M/MV5BMTYzMDM4NzkxOV5BMl5BanBnXkFtZTgwNzM1Mzg2NzM@._V1_SY1000_CR0,0,674,1000_AL_.jpg',
+    totalDownloads: '857',
+    createdAt: '03/04/2019'
+  },
+  {
+    id: uuid(),
+    title: 'Weathering with You',
+    imageUrl: 'https://m.media-amazon.com/images/M/MV5BNDNhN2MwMjktMzE4NS00ODljLTgxZjktZDJlYzdhYzFlYjBhXkEyXkFqcGdeQXVyNzE5ODMwNzI@._V1_SY1000_CR0,0,684,1000_AL_.jpg',
+    totalDownloads: '857',
+    createdAt: '03/04/2019'
+  },
+  {
+    id: uuid(),
+    title: 'Waves',
+    imageUrl: 'https://m.media-amazon.com/images/M/MV5BMWE2OTdiY2MtM2ViNy00NmExLWIxZjYtYTVkNGJkNzgwYjVmXkEyXkFqcGdeQXVyNjgzMjQ0MTA@._V1_SY1000_CR0,0,674,1000_AL_.jpg',
+    totalDownloads: '857',
+    createdAt: '03/04/2019'
+  },
+  {
+    id: uuid(),
+    title: 'Spider-Man: Far from Home',
+    imageUrl: 'https://m.media-amazon.com/images/M/MV5BMGZlNTY1ZWUtYTMzNC00ZjUyLWE0MjQtMTMxN2E3ODYxMWVmXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_SY1000_CR0,0,674,1000_AL_.jpg',
+    totalDownloads: '857',
+    createdAt: '03/04/2019'
+  },
+  {
+    id: uuid(),
+    title: 'A Hidden Life',
+    imageUrl: 'https://m.media-amazon.com/images/M/MV5BMDk4OTU0ZjctMjhhYS00YmVlLThlMDAtMjU4YzhlN2IyYzI3XkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SY1000_CR0,0,667,1000_AL_.jpg',
+    totalDownloads: '857',
+    createdAt: '03/04/2019'
+  },
+  {
+    id: uuid(),
+    title: 'Alita: Battle Angel',
+    imageUrl: 'https://m.media-amazon.com/images/M/MV5BNzVhMjcxYjYtOTVhOS00MzQ1LWFiNTAtZmY2ZmJjNjIxMjllXkEyXkFqcGdeQXVyNTc5OTMwOTQ@._V1_.jpg',
+    totalDownloads: '857',
+    createdAt: '03/04/2019'
+  },
+  {
+    id: uuid(),
+    title: 'Shazam!',
+    imageUrl: 'https://m.media-amazon.com/images/M/MV5BYTE0Yjc1NzUtMjFjMC00Y2I3LTg3NGYtNGRlMGJhYThjMTJmXkEyXkFqcGdeQXVyNTI4MzE4MDU@._V1_SY1000_CR0,0,674,1000_AL_.jpg',
+    totalDownloads: '857',
+    createdAt: '03/04/2019'
+  },
+  {
+    id: uuid(),
     title: 'Dora and the lost city of gold',
-    description:
-      'Medium is an online publishing platform developed by Evan Williams, and launched in August 2012.',
     imageUrl: 'https://amc-theatres-res.cloudinary.com/image/upload/f_auto,fl_lossy,h_465,q_auto,w_310/v1562680032/amc-cdn/production/2/movies/56400/56408/PosterDynamic/83473.jpg',
     totalDownloads: '625',
     createdAt: '31/03/2019'
   },
   {
     id: uuid(),
-    title: 'Jumanji',
-    description:
-      'Slack is a cloud-based set of team collaboration tools and services, founded by Stewart Butterfield.',
-    imageUrl: 'https://uk.imageservice.sky.com/contentid/A5EK5E17HwqxP4fGsGM4N/BOXART/266/394',
-    totalDownloads: '857',
-    createdAt: '03/04/2019'
+    title: 'Truth and Justice',
+    imageUrl: 'https://m.media-amazon.com/images/M/MV5BZWJhZWE0YjMtOWMzYy00YzVjLWFkN2UtMjY2N2I1ODg2M2Q1XkEyXkFqcGdeQXVyNjAzNDAyOQ@@._V1_SY1000_CR0,0,675,1000_AL_.jpg',
+    totalDownloads: '625',
+    createdAt: '31/03/2019'
   },
-  {
-    id: uuid(),
-    title: 'Avengers EndGame',
-    description:
-      'Lyft is an on-demand transportation company based in San Francisco, California.',
-    imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/81MUlAYh4LL._SL1500_.jpg',
-    totalDownloads: '406',
-    createdAt: '04/04/2019'
-  },
-
 ];

@@ -24,6 +24,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Dashboard = (props) => {
+
   const classes = useStyles();
   // console.log("THIS PROPS", this.props);
   const [products] = useState(mockData);

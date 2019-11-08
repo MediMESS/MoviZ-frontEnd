@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 
 const RouteWithLayout = props => {
   const { layout: Layout, onProfileStatusChange, component: Component, ...rest } = props;
-  console.log(onProfileStatusChange);
   return (
     <Route
       {...rest}
       render={matchProps => (
-        <Layout onProfileStatusChange={onProfileStatusChange}>
+        <Layout >
+            {console.log("REST", rest)}
             <Component {...matchProps} />
         </Layout>
       )}
