@@ -8,32 +8,6 @@ import {data} from './data';
 import { withStyles } from '@material-ui/core/styles';
 
 
-const languages = [
-  {
-    name: 'C',
-    year: 1972
-  },
-  {
-    name: 'c21',
-    year: 1972
-  },
-  {
-    name: 'c2',
-    year: 1972
-  },
-  {
-    name: 'C_+',
-    year: 1972
-  },
-  {
-    name: 'C#',
-    year: 1972
-  },
-  {
-    name: 'Elm',
-    year: 2012
-  },
-];
 const useStyles = theme => ({
   root: {
     padding: theme.spacing(3),
@@ -63,14 +37,29 @@ class Dashboard extends Component {
 
   // Teach Autosuggest how to calculate suggestions for any given input value.
   getSuggestions = value => {
-    const inputValue = value.trim().toLowerCase();
-    const inputLength = inputValue.length;
+    fetch('http://localhost:4000/searchDashboard', {
+      method: 'post',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        input: value
+      })
+    })
+      .then(prom => prom.json())
+      .then(data => {
+        console.log(data);
+        this.setState({products: data});
+      });
 
-    return inputLength === 0 ? [] : languages.filter(lang =>
-      lang.name.toLowerCase().slice(0, inputLength) === inputValue
-    );
-  };
-  
+
+
+  //   const inputValue = value.trim().toLowerCase();
+  //   const inputLength = inputValue.length;
+  //
+  //   return inputLength === 0 ? [] : languages.filter(lang =>
+  //     lang.name.toLowerCase().slice(0, inputLength) === inputValue
+  //   );
+  // };
+}
   render() {
     const {classes} = this.props;
     // console.log("THIS PROPS", this.props);

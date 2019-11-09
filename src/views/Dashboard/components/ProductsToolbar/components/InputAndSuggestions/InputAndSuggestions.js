@@ -3,6 +3,32 @@ import Autosuggest from 'react-autosuggest';
 // Imagine you have a list of languages that you'd like to autosuggest.
 
 
+const languages = [
+  {
+    name: 'C',
+    year: 1972
+  },
+  // {
+  //   name: 'c21',
+  //   year: 1972
+  // },
+  // {
+  //   name: 'c2',
+  //   year: 1972
+  // },
+  // {
+  //   name: 'C_+',
+  //   year: 1972
+  // },
+  // {
+  //   name: 'C#',
+  //   year: 1972
+  // },
+  // {
+  //   name: 'Elm',
+  //   year: 2012
+  // },
+];
 // When suggestion is clicked, Autosuggest needs to populate the input
 // based on the clicked suggestion. Teach Autosuggest how to calculate the
 // input value for every given suggestion.
@@ -39,9 +65,11 @@ class InputAndSuggestions extends Component {
   // Autosuggest will call this function every time you need to update suggestions.
   // You already implemented this logic above, so just use it.
   onSuggestionsFetchRequested = ({ value }) => {
-    this.setState({
-      suggestions: this.props.getSuggestions(value)
-    });
+    this.props.getSuggestions(value);
+    // this.setState({
+      // suggestions: this.props.getSuggestions(value)
+      // suggestions: languages
+    // });
   };
 
   // Autosuggest will call this function every time you need to clear suggestions.
