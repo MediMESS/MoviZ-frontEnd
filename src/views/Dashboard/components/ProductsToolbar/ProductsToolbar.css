@@ -1,0 +1,23 @@
+.container{
+  flex-grow: 1 !important;
+  border-radius: '4px' !important;
+  align-items: 'center' !important;
+  padding: '5px' !important;
+  display: 'flex' !important;
+  position: inherit !important;
+  flex-basis: 420 !important;
+  width: 100% !important;
+}
+.start {
+  align-items: flex-start !important;
+}
+.searchInput {
+  width: '100%';
+  border: 0;
+  padding: 6px 0 7px ;
+  background: none;
+  color: rgb(39, 43, 46);
+}
+.searchInput:focus {
+  outline: none !important;
+}

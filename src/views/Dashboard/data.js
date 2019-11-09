@@ -1,9 +1,9 @@
 import uuid from 'uuid/v1';
 
-export default [
+export const data = [
   {
     id: uuid(),
-    title: 'Aladin (2019)',
+    title: 'Aladin',
     imageUrl: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/bset-kids-movies-2019-aladdin-1555082928.jpg',
     totalDownloads: '594',
     updatedAt: '27/03/2019'
@@ -18,7 +18,7 @@ export default [
   {
     id: uuid(),
     title: 'Jumanji',
-    imageUrl: 'https://uk.imageservice.sky.com/contentid/A5EK5E17HwqxP4fGsGM4N/BOXART/266/394',
+    imageUrl: 'https://cdn10.bigcommerce.com/s-vzuks4/products/3232/images/4052/Jumanji_Welcome_to_the_Jungle_2__93558.1520474978.1280.1280.jpg?c=2',
     totalDownloads: '857',
     createdAt: '03/04/2019'
   },
