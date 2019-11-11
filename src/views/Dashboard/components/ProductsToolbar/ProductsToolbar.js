@@ -7,7 +7,7 @@ import { Paper, Input } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import {MovizCategorie} from '../MovizCategorie';
 import InputAndSuggestions from './components/InputAndSuggestions/InputAndSuggestions';
-import './ProductsToolbar.css';
+// import './ProductsToolbar.css';
 
 const useStyles = theme => ({
   row: {

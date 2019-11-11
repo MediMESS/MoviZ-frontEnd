@@ -37,28 +37,26 @@ class Dashboard extends Component {
 
   // Teach Autosuggest how to calculate suggestions for any given input value.
   getSuggestions = value => {
-    fetch('http://localhost:4000/searchDashboard', {
-      method: 'post',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({
-        input: value
+    if(value === "")
+      this.setState({products: data})
+    // fetch('http://localhost:4000/searchDashboard', {
+    //   method: 'post',
+    //   headers: {'Content-Type':'application/json'},
+    //   body: JSON.stringify({
+    //     input: value
+    //   })
+    // })
+    //   .then(prom => prom.json())
+    //   .then(data => {
+    //     console.log(data);
+    //     this.setState({products: data});
+    //   });
+    this.setState({
+      products: data.filter(d=>{
+        console.log(d.title);
+        return d.title.toLowerCase().includes(value)
       })
-    })
-      .then(prom => prom.json())
-      .then(data => {
-        console.log(data);
-        this.setState({products: data});
-      });
-
-
-
-  //   const inputValue = value.trim().toLowerCase();
-  //   const inputLength = inputValue.length;
-  //
-  //   return inputLength === 0 ? [] : languages.filter(lang =>
-  //     lang.name.toLowerCase().slice(0, inputLength) === inputValue
-  //   );
-  // };
+    });
 }
   render() {
     const {classes} = this.props;
