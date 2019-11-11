@@ -80,28 +80,7 @@ const usesStyles = theme => ({
       outline: 'none'
     }
   }
-  OGET 1st monde
-  OGV
-  // BENAK championship t3 algerie
-  // corp,,,,
-  // presenti urself aand benak , classe premier fal monde OGT ,  parmi 5first OGE fle monde ..
-  //  hnaya vos partenaire ch'hal tmadolna man opportunites... fle pick
-  // quelles sont vos conditions (females, males, musulmans, hijab), provided, covered
-  //  est-ce que 3ndkom Tn fees (paye nzid npikik mal bus, nmadlak bus ...etc care sejour, ...etc ,,,
-  // si oui y a possibilite de reduction ), izmir lokan tu mdonnes,,,,, aussi pour qu'il t'envoie leur search
-  // tool......... demandalo dossier ta3 VISA, il se trouve deja dans le IR..., and life expenses in that
-  // country........ AIESEC is sharing because we're one family
-  // TM can't se9ssi fal group only TL's, TL il se presente et il repond au msg, ya jm3a hada howa chkone
-   // yba3tona search tool, thank you
 
-  // 3 POSITIONS in IR....
-  // ---------------------
-  // 1. Riadh visa and life expenses...
-  // 2. Nada TM OGE,
-  // 3. Anaya TM GT , par exmple on a partnership m3a GE, hna on a pas fait
-  // -------------------------------------------------------------------------
-  // MC team algeria, LC benak, group AIESEC global, benak and ALGERIA super merci.
-  // im mehdi TM OGET looking forward to work with you, let's rock this pick.
 });
 
 
