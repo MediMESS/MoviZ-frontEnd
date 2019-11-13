@@ -26,17 +26,34 @@ const useStyles = makeStyles(theme => ({
     padding: 0
   },
   inner: {
-    minWidth: 1050
+    minWidth: 1050,
+    backgroundColor: theme.palette.secondary.main,
   },
   nameContainer: {
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'flex-start',
+
   },
   avatar: {
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
+    width: '150px',
+    height: '150px',
+    borderRadius: '30%',
+    transition: '.5s all',
+    '&:hover': {
+      height: '500px',
+      width: 'auto',
+      flexGrow: '1',
+      borderRadius: '0'
+    }
   },
   actions: {
     justifyContent: 'flex-end'
+  },
+  likes:{
+    color: 'white',
+    fontFamily: 'SEGA LOGO FONT',
+
   }
 }));
 
@@ -90,7 +107,7 @@ const UsersTable = props => {
   const handleRowsPerPageChange = event => {
     setRowsPerPage(event.target.value);
   };
-
+  let i = 0;
   return (
     <Card
       {...rest}
@@ -102,59 +119,66 @@ const UsersTable = props => {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={selectedUsers.length === users.length}
-                      color="primary"
-                      indeterminate={
-                        selectedUsers.length > 0 &&
-                        selectedUsers.length < users.length
-                      }
-                      onChange={handleSelectAll}
-                    />
-                  </TableCell>
                   <TableCell>Name</TableCell>
-                  <TableCell>Email</TableCell>
-                  <TableCell>Location</TableCell>
-                  <TableCell>Phone</TableCell>
-                  <TableCell>Registration date</TableCell>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Name</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {users.slice(0, rowsPerPage).map(user => (
+                {
+                  users.slice(0, rowsPerPage).map(user => (
                   <TableRow
                     className={classes.tableRow}
                     hover
                     key={user.id}
-                    selected={selectedUsers.indexOf(user.id) !== -1}
                   >
-                    <TableCell padding="checkbox">
-                      <Checkbox
-                        checked={selectedUsers.indexOf(user.id) !== -1}
-                        color="primary"
-                        onChange={event => handleSelectOne(event, user.id)}
-                        value="true"
-                      />
+                    <TableCell>
+                      <div className={classes.nameContainer}>
+                        <img
+                          className={classes.avatar}
+                          src={user.imageUrl}
+                        />
+                        <Typography
+                          gutterBottom
+                          variant="h3"
+                          className={classes.likes}
+                        >
+                          {"MoviZ LIKED"}
+                        </Typography>
+                      </div>
                     </TableCell>
                     <TableCell>
                       <div className={classes.nameContainer}>
-                        <Avatar
+                        <img
                           className={classes.avatar}
-                          src={user.avatarUrl}
+                          src={user.imageUrl}
+                        />
+                        <Typography
+                          gutterBottom
+                          variant="h3"
+                          className={classes.likes}
                         >
-                        </Avatar>
-                        <Typography variant="body1">{user.name}</Typography>
+                          {"MoviZ LIKED"}
+                        </Typography>
                       </div>
                     </TableCell>
-                    <TableCell>{user.email}</TableCell>
+
                     <TableCell>
-                      {user.address.city}, {user.address.state},{' '}
-                      {user.address.country}
+                      <div className={classes.nameContainer}>
+                        <img
+                          className={classes.avatar}
+                          src={user.imageUrl}
+                        />
+                        <Typography
+                          gutterBottom
+                          variant="h3"
+                          className={classes.likes}
+                        >
+                          {"MoviZ LIKED"}
+                        </Typography>
+                      </div>
                     </TableCell>
-                    <TableCell>{user.phone}</TableCell>
-                    <TableCell>
-                      {moment(user.createdAt).format('DD/MM/YYYY')}
-                    </TableCell>
+
                   </TableRow>
                 ))}
               </TableBody>

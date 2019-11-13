@@ -3,7 +3,8 @@ import { IconButton, Grid, Typography } from '@material-ui/core';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import 'common/Signed.css';
-import { ProductsToolbar, MovizCard } from './components';
+import {MovizCard } from './components';
+import {SearchToolbar} from 'components';
 import {data} from './data';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -21,8 +22,32 @@ const useStyles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end'
+  },
+  paper: {
+    transition: '.2s transform',
+    '&:hover':{
+      cursor: 'pointer',
+      transform: 'scale(1.1)',
+    }
   }
 });
+
+const options = [
+  'None',
+  'Atria',
+  'Callisto',
+  'Dione',
+  'Ganymede',
+  'Hangouts Call',
+  'Luna',
+  'Oberon',
+  'Phobos',
+  'Pyxis',
+  'Sedna',
+  'Titania',
+  'Triton',
+  'Umbriel',
+];
 
 class Dashboard extends Component {
 
@@ -37,8 +62,10 @@ class Dashboard extends Component {
 
   // Teach Autosuggest how to calculate suggestions for any given input value.
   getSuggestions = value => {
-    if(value === "")
-      this.setState({products: data})
+    if(value === ""){
+      // this.setState({products: data})
+      return data
+    }
     // fetch('http://localhost:4000/searchDashboard', {
     //   method: 'post',
     //   headers: {'Content-Type':'application/json'},
@@ -51,12 +78,16 @@ class Dashboard extends Component {
     //     console.log(data);
     //     this.setState({products: data});
     //   });
-    this.setState({
-      products: data.filter(d=>{
-        console.log(d.title);
-        return d.title.toLowerCase().includes(value)
+
+    // this.setState({
+    //   products: data.filter(d=>{
+    //     return d.title.toLowerCase().includes(value)
+    //   })
+    // });
+    // return this.state.products
+    return data.filter(d=>{
+        return d.title.toLowerCase().includes(value.toLowerCase() )
       })
-    });
 }
   render() {
     const {classes} = this.props;
@@ -64,8 +95,9 @@ class Dashboard extends Component {
 
     return (
       <div className={classes.root}>
-        <ProductsToolbar
-          getSuggestions={this.getSuggestions}/>
+        <SearchToolbar
+          getSuggestions={this.getSuggestions}
+          options={options}/>
         <div className={classes.content}>
           <Grid
             container
@@ -79,6 +111,7 @@ class Dashboard extends Component {
                 md={4}
                 sm={6}
                 xs={12}
+                className={classes.paper}
               >
                 <MovizCard product={product} />
               </Grid>

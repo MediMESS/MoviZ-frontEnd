@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import IconButton from '@material-ui/core/IconButton';
+import InfoIcon from '@material-ui/icons/Info';
+import Tooltip from '@material-ui/core/Tooltip';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import {
@@ -14,7 +17,8 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import GetAppIcon from '@material-ui/icons/GetApp';
 
 const useStyles = makeStyles(theme => ({
-  root: {},
+  root: {
+  },
   imageContainer: {
     margin: '0 auto',
     border: `1px solid ${theme.palette.divider}`,
@@ -24,8 +28,15 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center'
   },
   image: {
+    width:'500px',
+    height: '500px',
+  },
+  title:{
+    fontSize: '25px',
+    fontWeight:'700',
+    margin:'10px 0',
     width: '100%',
-    height: '100%',
+    color:theme.palette.text.primary,
   },
   statsItem: {
     display: 'flex',
@@ -34,6 +45,24 @@ const useStyles = makeStyles(theme => ({
   statsIcon: {
     color: theme.palette.icon,
     marginRight: theme.spacing(1)
+  },
+  iconButton: {
+    color: theme.palette.icon,
+    padding: 0,
+  },
+  heartIcon: {
+    color: theme.palette.primary.main,
+    marginRight: '10px',
+  },
+  toolTipPopper:{
+    width: '100px',
+    height: '100px',
+    fontSize: '100px',
+  },
+  toolTip:{
+    fontSize:'40px',
+    rippleBackgroundColor: 'blue',
+    color: theme.palette.primary.main,
   }
 }));
 
@@ -44,28 +73,27 @@ const MovizCard = props => {
   return (
     <Card
       {...rest}
-      className={clsx(classes.root, className)}
     >
       <CardContent
         style={{paddingBottom: '0'}}
+        className={classes.root}
       >
         <div className={classes.imageContainer}>
           <img
+
             alt="Product"
-            className={classes.image}
             src={product.imageUrl}
+            height="500"
           />
         </div>
         <Typography
           align="center"
           gutterBottom
-          variant="h3"
-          style={{margin:'10px 0 0 0'}}
+          className={classes.title}
         >
           {product.title}
         </Typography>
 
-      </CardContent>
       <Divider />
       <CardActions>
         <Grid
@@ -79,26 +107,39 @@ const MovizCard = props => {
             <AccessTimeIcon className={classes.statsIcon} />
             <Typography
               display="inline"
-              variant="body2"
+              variant="body1"
+              style={{marginRight:'20px'}}
             >
-              Updated 2hr ago
+              8.4
+            </Typography>
+            <GetAppIcon className={classes.statsIcon} />
+            <Typography
+              display="inline"
+              variant="body1"
+            >
+              {product.totalDownloads}
             </Typography>
           </Grid>
           <Grid
             className={classes.statsItem}
             item
           >
-            <GetAppIcon className={classes.statsIcon} />
-            <Typography
-              display="inline"
-              variant="body2"
-            >
-              {product.totalDownloads} Downloads
-            </Typography>
+          <Tooltip classes={{
+              popper: classes.toolTipPopper,
+              tooltip: classes.toolTip,
+            }} title="LIKE" placement="bottom">
+            <IconButton
+              className={classes.iconButton}
+              >
+                <InfoIcon className={classes.heartIcon}/>
+            </IconButton>
+          </Tooltip>
+
           </Grid>
         </Grid>
       </CardActions>
-    </Card>
+    </CardContent>
+  </Card>
   );
 };
 

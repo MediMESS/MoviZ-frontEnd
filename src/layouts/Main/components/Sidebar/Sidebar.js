@@ -48,7 +48,7 @@ const Sidebar = props => {
     },
     {
       title: 'Recommendation',
-      href: '/users',
+      href: '/recommendation',
       icon: <PeopleIcon />
     },
     {
