@@ -23,7 +23,8 @@ import {
 
 
 const useStyles = theme => ({
-  root: {},
+  root: {
+  },
   content: {
     padding: 0
   },

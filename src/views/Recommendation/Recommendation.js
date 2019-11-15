@@ -49,8 +49,10 @@ const useStyles = theme => ({
     textAlign: 'center',
     fontFamily: 'SEGA LOGO FONT',
   },
-  gridLikes: {
-    height:'75vh',
+  bottom :{
+    height: '60vh',
+    backgroundColor: theme.palette.secondary.main,
+
   },
   likes: {
     fontFamily: 'SEGA LOGO FONT',
@@ -76,11 +78,12 @@ class Recommendation extends Component {
   componentDidMount(){
     window.addEventListener('scroll', this.focusRef);
     if(this.state.scrolling && this.state.currentRef === '' ){
-      if(window.scrollY !== 0)
+      if(window.scrollY != 0){
         window.scrollTo({left : '0', top: '0', behavior:'smooth'});
-      else
-        this.setState({currentRef: 'recommendation', scrolling: false});
+      }
+      this.setState({currentRef: 'recommendation', scrolling: false});
     };
+
 
   }
   componentWillUnmount(){
@@ -170,7 +173,7 @@ class Recommendation extends Component {
           ))}
       </div>
 
-      <div style={{marginTop: '25px'}} ref={this.refMovizLiked}>
+      <div style={{marginTop: '100vh'}} ref={this.refMovizLiked}>
         <Typography
           gutterBottom
           variant="h1"
@@ -182,8 +185,9 @@ class Recommendation extends Component {
         <SearchToolbar
           getSuggestions={this.getSuggestions}
           options={[]}/>
-        </div>
+          </div>
           <UsersTable movies={this.state.likedMovies}/>
+          <div className={classes.bottom}></div>
     </div>
 
     );
