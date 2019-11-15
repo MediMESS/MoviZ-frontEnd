@@ -5,3 +5,4 @@ export { default as NavigationUnSigned } from './NavigationUnSigned';
 export { default as Slogan } from './Slogan';
 export { default as DialogMustSignIn } from './DialogMustSignIn';
 export { default as SearchToolbar } from './SearchToolbar';
+export { default as MovizCard } from './MovizCard';

@@ -67,7 +67,6 @@ const Topbar = props => {
           </IconButton>
           <IconButton
             className={classes.signOutButton}
-            onClick={() => {onProfileStatusChange('unSigned')}}
             href="/signIn"
             color="inherit"
           >
@@ -86,7 +85,6 @@ const Topbar = props => {
           </IconButton>
           <IconButton
             className={classes.signOutButton}
-            onClick={() => {onProfileStatusChange('unSigned')}}
             href="/signIn"
             color="inherit"
           >

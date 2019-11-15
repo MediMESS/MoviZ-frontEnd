@@ -18,7 +18,6 @@ const MovizCategorie = ({options}) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
   return (
     <div>
       <Button
@@ -50,8 +49,8 @@ const MovizCategorie = ({options}) => {
           </MenuItem>
         ))}
       </Menu>
-    </div>
-  );
+  </div>
+);
 }
 
 export default MovizCategorie;

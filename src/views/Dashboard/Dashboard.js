@@ -3,7 +3,7 @@ import { IconButton, Grid, Typography } from '@material-ui/core';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import 'common/Signed.css';
-import {MovizCard } from './components';
+import {MovizCard } from 'components';
 import {SearchToolbar} from 'components';
 import {data} from './data';
 import { withStyles } from '@material-ui/core/styles';
@@ -56,7 +56,7 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       searchInput: '',
-      products: data
+      movies: data
     };
   }
 
@@ -103,17 +103,17 @@ class Dashboard extends Component {
             container
             spacing={3}
           >
-            {this.state.products.map(product => (
+            {this.state.movies.map(movie => (
               <Grid
                 item
-                key={product.id}
+                key={movie.id}
                 lg={4}
                 md={4}
                 sm={6}
                 xs={12}
                 className={classes.paper}
               >
-                <MovizCard product={product} />
+                <MovizCard movie={movie} />
               </Grid>
             ))}
           </Grid>

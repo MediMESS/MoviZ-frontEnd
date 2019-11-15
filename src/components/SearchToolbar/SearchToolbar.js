@@ -154,7 +154,6 @@ class SearchToolbar extends Component {
   render(){
     const { classes, options } = this.props;
     const { value, suggestions } = this.state;
-    console.log("Value Bro", value);
 
     const inputProps = {
       placeholder: 'Type Your Search Here',
@@ -162,7 +161,40 @@ class SearchToolbar extends Component {
       onChange: this.onChange,
     };
 
-    return (
+    if(options.length !== 0)
+      return (
+        <div
+          className={clsx(classes.root)}
+        >
+          <div className={classes.row}>
+            <Paper className={clsx(classes.paper)} >
+              <SearchIcon className={classes.icon} />
+
+              <Autosuggest
+                suggestions={this.state.suggestions}
+                onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+                getSuggestionValue={getSuggestionValue}
+                renderSuggestion={renderSuggestion}
+                inputProps={inputProps}
+                theme= {classes}
+              />
+            </Paper>
+            <MovizCategorie
+              className={classes.categorie}
+              options={options}/>
+            <Button
+              color="primary"
+              variant="contained"
+              style={{width: '200px', height: '100%'}}
+            >
+              Search
+            </Button>
+          </div>
+        </div>
+      );
+    else
+      return (
       <div
         className={clsx(classes.root)}
       >
@@ -171,7 +203,7 @@ class SearchToolbar extends Component {
             <SearchIcon className={classes.icon} />
 
             <Autosuggest
-              suggestions={this.state.suggestions}
+              suggestions={[]}
               onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
               onSuggestionsClearRequested={this.onSuggestionsClearRequested}
               getSuggestionValue={getSuggestionValue}
@@ -180,19 +212,9 @@ class SearchToolbar extends Component {
               theme= {classes}
             />
           </Paper>
-          <MovizCategorie
-            className={classes.categorie}
-            options={options}/>
-          <Button
-            color="primary"
-            variant="contained"
-            style={{width: '200px', height: '100%'}}
-          >
-            Search
-          </Button>
         </div>
-      </div>
-    );
+      </div>);
+
   }
 }
 export default withStyles(useStyles)(SearchToolbar);

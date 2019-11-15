@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/styles';
-import {Typography, Grid} from '@material-ui/core';
+import React, { Component } from 'react';
+import { makeStyles, withStyles } from '@material-ui/styles';
+import {Typography, Grid, Button} from '@material-ui/core';
 import { UsersToolbar, UsersTable } from './components';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import IconButton from '@material-ui/core/IconButton';
-import {MovizCard} from 'views/Dashboard/components';
+import {MovizCard} from 'components';
 import {SearchToolbar} from 'components';
 import {Dashboard} from 'views';
 import clsx from 'clsx';
@@ -13,12 +13,8 @@ import {data} from 'views/Dashboard/data';
 import users from './data';
 
 
-const options = [
-  'Recommendation',
-  'Like'
-];
 
-const useStyles = makeStyles(theme => ({
+const useStyles = theme => ({
   root: {
   },
   pagination: {
@@ -28,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'flex-end'
   },
   paper: {
-    transition: '.5 transform',
+    transition: '.3s transform',
     margin: '0 10px',
     '&:hover':{
       cursor: 'pointer',
@@ -48,15 +44,10 @@ const useStyles = makeStyles(theme => ({
   },
   recommendation: {
     margin: '5px',
-    // backgroundColor: theme.palette.primary.main,
-    // color: theme.palette.primary.dark,
-    // color: theme.palette.text.primary,
     backgroundColor: theme.palette.secondary.main,
     color: 'white',
     textAlign: 'center',
     fontFamily: 'SEGA LOGO FONT',
-
-    // border: `2px solid ${theme.palette.primary.main}`,
   },
   gridLikes: {
     height:'75vh',
@@ -66,14 +57,69 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'center',
     color: 'white',
     backgroundColor: theme.palette.secondary.main,
-    // border: `2px solid ${theme.palette.primary.main}`,
   },
-}));
+});
 
-const getSuggestions = value => {
+
+class Recommendation extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentRef : '',
+      scrolling: true,
+      likedMovies: data,
+      recommendedMovies: data,
+    }
+    this.refMovizLiked = React.createRef();
+    this.refRecommendation = React.createRef();
+  }
+  componentDidMount(){
+    window.addEventListener('scroll', this.focusRef);
+    if(this.state.scrolling && this.state.currentRef === '' ){
+      if(window.scrollY !== 0)
+        window.scrollTo({left : '0', top: '0', behavior:'smooth'});
+      else
+        this.setState({currentRef: 'recommendation', scrolling: false});
+    };
+
+  }
+  componentWillUnmount(){
+    window.removeEventListener('scroll', this.focusRef);
+  }
+
+  focusRef =  () => {
+    const offsetTopMovizLiked = this.refMovizLiked.current.offsetTop - this.refRecommendation.current.offsetTop
+    // scrolling from recommendation to liked
+    if(!this.state.scrolling && this.state.currentRef === 'recommendation' &&
+      window.scrollY > 0 && window.scrollY < offsetTopMovizLiked){
+      this.setState({scrolling: true});
+      window.scrollTo({left : '0', top: offsetTopMovizLiked, behavior:'smooth'});
+      return;
+    }
+    // we arrived to liked we have to update state
+    if(this.state.scrolling && this.state.currentRef === 'recommendation' &&
+      window.scrollY >= offsetTopMovizLiked){
+      this.setState({currentRef:'liked', scrolling: false});
+      return;
+    }
+
+    // scrolling from liked to recommendation
+    if(!this.state.scrolling && this.state.currentRef === 'liked' && window.scrollY < offsetTopMovizLiked ){
+      this.setState({scrolling: true});
+      window.scrollTo({left : '0', top: '0', behavior:'smooth'});
+      return;
+    }
+    // we arrived to recommendation we have to update state
+    if(this.state.scrolling && this.state.currentRef === 'liked' && window.scrollY === 0){
+      this.setState({currentRef:'recommendation', scrolling: false});
+      return;
+    }
+}
+
+  getSuggestions = value => {
   if(value === ""){
-    // this.setState({products: data})
-    return data
+    this.setState({likedMovies: data})
+    return data;
   }
   // fetch('http://localhost:4000/searchDashboard', {
   //   method: 'post',
@@ -94,55 +140,53 @@ const getSuggestions = value => {
   //   })
   // });
   // return this.state.products
-  return data.filter(d=>{
-      return d.title.toLowerCase().includes(value.toLowerCase() )
-    })
-}
-const Recommendation = () => {
-  const classes = useStyles();
+  const likedMoviesSearching = data.filter(d=>{
+      return d.title.toLowerCase().includes(value.toLowerCase())
+    });
+  this.setState({likedMovies: likedMoviesSearching});
+  }
+  render (){
+    const {classes} = this.props;
+    const products = data;
 
-  const products = data;
+    return (
+      <div className={classes.root} >
+        <div ref={this.refRecommendation}>
+          <Typography
+            gutterBottom
+            variant="h1"
+            className={classes.recommendation}
+          >
+            RECOMMENDATION
+          </Typography>
+        </div>
+        <div
+          className={clsx(classes.gridContainer, classes.gridRecommendation)}
+        >
+          {this.state.recommendedMovies.map(recommendedMovie => (
+            <div className={classes.paper}>
+              <MovizCard movie={recommendedMovie} />
+            </div>
+          ))}
+      </div>
 
-  return (
-    <div className={classes.root}>
-      <div >
-        {window.scrollTo({top: 0, left: 0, behavior: 'smooth' })}
+      <div style={{marginTop: '25px'}} ref={this.refMovizLiked}>
         <Typography
           gutterBottom
           variant="h1"
-          className={classes.recommendation}
+          className={classes.likes}
         >
-          RECOMMENDATION
+          {"MoviZ LIKED"}
         </Typography>
-      </div>
-      <div
-        className={clsx(classes.gridContainer, classes.gridRecommendation)}
-      >
-        {products.map(product => (
-          <div className={classes.paper}>
-            <MovizCard product={product} />
-          </div>
-        ))}
+
+        <SearchToolbar
+          getSuggestions={this.getSuggestions}
+          options={[]}/>
+        </div>
+          <UsersTable movies={this.state.likedMovies}/>
     </div>
 
-    <div >
-      {window.scrollTo({top: 0, left: 0, behavior: 'smooth' })}
-      <Typography
-        gutterBottom
-        variant="h1"
-        className={classes.likes}
-      >
-        {"MoviZ LIKED"}
-      </Typography>
-      <SearchToolbar
-      getSuggestions={getSuggestions}
-      options={options}/>
-
-      </div>
-        <UsersTable users={data}/>
-  </div>
-
-  );
-};
-
-export default Recommendation;
+    );
+  }
+}
+export default withStyles(useStyles)(Recommendation);
