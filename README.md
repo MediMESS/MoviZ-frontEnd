@@ -1,6 +1,6 @@
 # MoviZ 
 ![moviz](https://user-images.githubusercontent.com/40898323/68087360-5bf57900-fe55-11e9-9cea-a42abd17eb0e.JPG)
-As im converting myself and loving web developpement. This is a web App project i built using:
+I'm a PASSIONATE LOVING FULL-STATCK WEB DEV. This is a web App project i built using:
 #### Front end : `REACT + REDUX + Material-Ui`
 #### BackEnd : `NodeJs + ExpressJs`
 #### Database : `postGreSQL`
