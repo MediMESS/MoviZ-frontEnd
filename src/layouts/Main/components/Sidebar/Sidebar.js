@@ -10,7 +10,7 @@ import ImageIcon from '@material-ui/icons/Image';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import SettingsIcon from '@material-ui/icons/Settings';
 
-import { Profile, SidebarNav, UpgradePlan } from './components';
+import { Profile, SidebarNav, GitHubLink } from './components';
 
 const useStyles = makeStyles(theme => ({
   drawer: {
@@ -81,7 +81,7 @@ const Sidebar = props => {
           className={classes.nav}
           pages={pages}
         />
-        <UpgradePlan />
+        <GitHubLink />
       </div>
     </Drawer>
   );

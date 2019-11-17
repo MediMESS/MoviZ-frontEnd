@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const UpgradePlan = props => {
+const GitHubLink = props => {
   const { className, ...rest } = props;
 
   const classes = useStyles();
@@ -73,8 +73,8 @@ const UpgradePlan = props => {
   );
 };
 
-UpgradePlan.propTypes = {
+GitHubLink.propTypes = {
   className: PropTypes.string
 };
 
-export default UpgradePlan;
+export default GitHubLink;
