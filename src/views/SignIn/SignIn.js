@@ -90,7 +90,7 @@ class SignIn extends Component {
         {
           console.log("Signed");
           console.log("ALOOOOOOOOOOOOOOOOOOO\n\n\n\n\n\n\n\nakdsjalk");
-          return <Redirect to='/dashboard' />
+          return <Redirect to='/moviz' />
 
         }
         else{
@@ -158,7 +158,7 @@ class SignIn extends Component {
                 color="primary"
                 className={classes.submit}
                 onClick={this.onSignIn}
-                href="/dashboard"
+                href="/moviz"
               >
                   Sign In
               </Button>

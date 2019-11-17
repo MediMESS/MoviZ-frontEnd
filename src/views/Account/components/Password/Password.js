@@ -69,7 +69,7 @@ const Password = props => {
         <CardActions>
           <Button
             color="primary"
-            variant="outlined"
+            variant="contained"
           >
             Update
           </Button>

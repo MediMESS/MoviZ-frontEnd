@@ -5,11 +5,10 @@ import { RouteWithLayout } from 'components';
 import { Main as MainLayout, Minimal as MinimalLayout } from 'layouts';
 
 import {
-  Dashboard as DashboardView,
+  Moviz as MovizView,
   Recommendation as RecommendationView,
-  Icons as IconsView,
+  Liked as LikedView,
   Account as AccountView,
-  Settings as SettingsView,
   NotFound as NotFoundView,
   SignIn as SignInView,
   Register as RegisterView
@@ -34,10 +33,10 @@ const Routes = (props) => {
         <RegisterView />
       </Route>
       <RouteWithLayout
-        component={DashboardView}
+        component={MovizView}
         exact
         layout={MainLayout}
-        path="/dashboard"
+        path="/moviz"
       />
       <RouteWithLayout
         component={RecommendationView}
@@ -46,28 +45,16 @@ const Routes = (props) => {
         path="/recommendation"
       />
       <RouteWithLayout
-        component={DashboardView}
+        component={LikedView}
         exact
         layout={MainLayout}
-        path="/products"
-      />
-      <RouteWithLayout
-        component={IconsView}
-        exact
-        layout={MainLayout}
-        path="/icons"
+        path="/liked"
       />
       <RouteWithLayout
         component={AccountView}
         exact
         layout={MainLayout}
         path="/account"
-      />
-      <RouteWithLayout
-        component={SettingsView}
-        exact
-        layout={MainLayout}
-        path="/settings"
       />
       <RouteWithLayout
         component={NotFoundView}

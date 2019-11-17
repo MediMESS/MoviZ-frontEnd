@@ -11,7 +11,8 @@ import {
   Typography,
   Divider,
   Button,
-  LinearProgress
+  LinearProgress,
+  TextField
 } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
@@ -47,6 +48,13 @@ const AccountProfile = props => {
     avatar: '/images/avatars/avatar_11.png'
   };
 
+  const handleChange = event => {
+    // setValues({
+    //   ...values,
+    //   [event.target.name]: event.target.value
+    // });
+    console.log(event.target.value);
+  };
   return (
     <Card
       {...rest}
@@ -90,6 +98,16 @@ const AccountProfile = props => {
         </div>
       </CardContent>
       <Divider />
+      <TextField
+      style={{marginTop: '20px'}}
+      fullWidth
+      helperText="Please Specify the URL if you want to change Picture"
+      label="URL picture"
+      margin="dense"
+      name="urlPicture"
+      onChange={handleChange}
+      variant="outlined"
+      />
       <CardActions>
         <Button
           className={classes.uploadButton}

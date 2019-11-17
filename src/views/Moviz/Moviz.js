@@ -49,7 +49,7 @@ const options = [
   'Umbriel',
 ];
 
-class Dashboard extends Component {
+class Moviz extends Component {
 
 
   constructor(props){
@@ -66,7 +66,7 @@ class Dashboard extends Component {
       // this.setState({products: data})
       return data
     }
-    // fetch('http://localhost:4000/searchDashboard', {
+    // fetch('http://localhost:4000/searchMoviz', {
     //   method: 'post',
     //   headers: {'Content-Type':'application/json'},
     //   body: JSON.stringify({
@@ -132,4 +132,4 @@ class Dashboard extends Component {
   }
 }
 
-export default withStyles(useStyles)(Dashboard)
+export default withStyles(useStyles)(Moviz)

@@ -66,7 +66,7 @@ const UpgradePlan = props => {
           variant="contained"
           style={{textTransform: 'Capitalize'}}
         >
-          GitHub
+          Mehdi Messarat
         </Button>
       </div>
     </div>

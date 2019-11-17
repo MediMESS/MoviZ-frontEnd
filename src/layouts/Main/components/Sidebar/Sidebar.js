@@ -43,7 +43,7 @@ const Sidebar = props => {
   const pages = [
     {
       title: 'MoviZ',
-      href: '/dashboard',
+      href: '/moviz',
       icon: <DashboardIcon />
     },
     {
@@ -52,8 +52,8 @@ const Sidebar = props => {
       icon: <PeopleIcon />
     },
     {
-      title: 'Blog',
-      href: '/icons',
+      title: 'Liked',
+      href: '/liked',
       icon: <ImageIcon />
     },
     {
@@ -61,11 +61,6 @@ const Sidebar = props => {
       href: '/account',
       icon: <AccountBoxIcon />
     },
-    {
-      title: 'Settings',
-      href: '/settings',
-      icon: <SettingsIcon />
-    }
   ];
 
   return (
