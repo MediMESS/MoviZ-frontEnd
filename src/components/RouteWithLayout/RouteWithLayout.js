@@ -3,18 +3,21 @@ import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const RouteWithLayout = props => {
-  const { layout: Layout, onProfileStatusChange, component: Component, ...rest } = props;
-  return (
-    <Route
+  // console.log("Route with Layout", props);
+  const { layout: Layout, user, onUserChange, onSignOut, component: Component, ...rest } = props;
+    return (
+      <Route
       {...rest}
       render={matchProps => (
         <Layout >
-            {console.log("REST", rest)}
-            <Component {...matchProps} />
+        <Component {...matchProps}
+        user={user}
+        onSignOut={onSignOut}
+        onUserChange = {onUserChange}/>
         </Layout>
       )}
-    />
-  );
+      />
+    );
 };
 
 RouteWithLayout.propTypes = {

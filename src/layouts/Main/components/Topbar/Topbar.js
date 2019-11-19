@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Topbar = props => {
-  const { className, onSidebarOpen, onProfileStatusChange, ...rest } = props;
+  const { className, onSidebarOpen, onSignOut, ...rest } = props;
   const classes = useStyles();
 
   const [notifications] = useState([]);
@@ -46,9 +46,11 @@ const Topbar = props => {
       className={clsx(classes.root, className)}
     >
       <Toolbar>
-        <RouterLink to="/moviz">
+        <RouterLink to="/signIn">
           <Typography  variant="h6" className={classes.title} >
-            <Button className={`${classes.blue} ${classes.title_inside}`}>
+            <Button
+              className={`${classes.blue} ${classes.title_inside}`}
+            >
               <MovieIcon style={{fontSize: '30px', marginRight:'5px'}}/>
                 Movi<span style={{fontSize:'30px'}}>Z</span>
             </Button>
@@ -58,7 +60,7 @@ const Topbar = props => {
         <Hidden mdDown>
           <IconButton
             className={classes.signOutButton}
-            href="/signIn"
+            onClick={()=> onSignOut() }
             color="inherit"
           >
             <InputIcon />
@@ -67,7 +69,7 @@ const Topbar = props => {
         <Hidden lgUp>
           <IconButton
             className={classes.signOutButton}
-            href="/signIn"
+            onClick={()=> onSignOut() }
             color="inherit"
           >
             <InputIcon />

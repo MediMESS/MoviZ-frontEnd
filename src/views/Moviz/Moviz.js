@@ -59,7 +59,15 @@ class Moviz extends Component {
       movies: data
     };
   }
-
+  componentDidMount(){
+    this.props.onUserChange({
+      id: 5,
+      name: "a",
+      last_name: null,
+      email: "a",
+      joined: "2019-11-06T14:38:40.952Z"
+    });
+  }
   // Teach Autosuggest how to calculate suggestions for any given input value.
   getSuggestions = value => {
     if(value === ""){
@@ -92,7 +100,7 @@ class Moviz extends Component {
   render() {
     const {classes} = this.props;
     // console.log("THIS PROPS", this.props);
-
+    console.log("MOVIZZ");
     return (
       <div className={classes.root}>
         <SearchToolbar

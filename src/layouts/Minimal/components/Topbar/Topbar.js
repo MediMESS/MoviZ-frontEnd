@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Topbar = props => {
-  const { className, ...rest } = props;
+  const { className, onSignOut, ...rest } = props;
 
   const classes = useStyles();
 
@@ -29,7 +29,9 @@ const Topbar = props => {
       <Toolbar>
         <RouterLink to="/">
           <Typography  variant="h6" className={classes.title} >
-            <Button className={`${classes.blue} ${classes.title_inside}`}>
+            <Button
+              className={`${classes.blue} ${classes.title_inside}`}
+              onClick={()=>onSignOut()}>
               <MovieIcon style={{fontSize: '30px', marginRight:'5px'}}/>
                 Movi<span style={{fontSize:'30px'}}>Z</span>
             </Button>

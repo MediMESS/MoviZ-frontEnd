@@ -23,14 +23,16 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Main = props => {
-  const { onProfileStatusChange, children } = props;
-
+  const { children } = props;
   const classes = useStyles();
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'), {
     defaultMatches: true
   });
-
+  const onSignOut = () => {
+    children.props.onSignOut();
+    children.props.history.push('/signIn')
+  }
   const [openSidebar, setOpenSidebar] = useState(false);
 
   const handleSidebarOpen = () => {
@@ -51,12 +53,13 @@ const Main = props => {
       })}
     >
       <Topbar
-        onProfileStatusChange={onProfileStatusChange}
+        onSignOut={onSignOut}
         onSidebarOpen={handleSidebarOpen}
       />
       <Sidebar
         onClose={handleSidebarClose}
         open={shouldOpenSidebar}
+        user={children.props.user}
         variant={isDesktop ? 'persistent' : 'temporary'}
       />
       <main className={classes.content}>

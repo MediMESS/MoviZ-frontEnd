@@ -10,8 +10,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Account = () => {
+const Account = (props) => {
   const classes = useStyles();
+  console.log("ACCOUNT HERE", props);
 
   return (
     <div className={classes.root}>

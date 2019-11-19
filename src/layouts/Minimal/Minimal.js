@@ -16,12 +16,16 @@ const useStyles = makeStyles(() => ({
 
 const Minimal = props => {
   const { children } = props;
+  const {user, onSignOut} = children.props;
+
 
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <Topbar />
+      <Topbar
+        onSignOut={onSignOut}
+      />
       <main className={classes.content}>{children}</main>
     </div>
   );

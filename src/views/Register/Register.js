@@ -14,10 +14,8 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import 'common/UnSigned.css';
-import {
-  NavigationUnSigned,
-  Slogan
-} from 'components';
+import { Slogan, NavigationUnSigned } from 'components';
+
 
 function Copyright() {
   return (
@@ -91,10 +89,14 @@ class SignUp extends Component {
       .then(response => response.json())
       .then(user=>{
         if(user.id){
+          console.log("SIGNED UP");
           this.props.onProfileStatusChange('signed');
         }
         else
+        {
+          console.log("NO SIGNED UP");
           this.setState({registerError: true});
+        }
       })
 
   }
@@ -198,7 +200,7 @@ class SignUp extends Component {
                 color="primary"
                 className={classes.submit}
                 onClick={this.onRegister}
-                href="/dashboard"
+                href="#"
               >
                 Sign Up
               </Button>

@@ -13,12 +13,9 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Link as LinkRouter, Redirect } from 'react-router-dom';
+import { Slogan, NavigationUnSigned } from 'components';
 
 import 'common/UnSigned.css';
-import {
-  NavigationUnSigned,
-  Slogan
-} from 'components';
 
 
 function Copyright() {
@@ -88,21 +85,19 @@ class SignIn extends Component {
       .then(user => {
         if(user[0].id)
         {
-          console.log("Signed");
-          console.log("ALOOOOOOOOOOOOOOOOOOO\n\n\n\n\n\n\n\nakdsjalk");
-          return <Redirect to='/moviz' />
-
+          this.props.onSignedIn(user[0]);
+          this.props.history.push("/moviz");
         }
         else{
           this.setState({signInError: true})
-          return <Redirect to='/signIn' />
         }
     });
   }
 
   render ()
   {
-
+    // console.log("signIn");
+    console.log(this.props);
    const {classes} = this.props;
     return (
       <div className="unSigned">
@@ -158,7 +153,7 @@ class SignIn extends Component {
                 color="primary"
                 className={classes.submit}
                 onClick={this.onSignIn}
-                href="/moviz"
+                href="#"
               >
                   Sign In
               </Button>
@@ -174,7 +169,7 @@ class SignIn extends Component {
                     style={{cursor:'pointer'}}
                     to="/register"
                     >
-                    {"No Account? Sign Up"}
+                     No Account? Sign Up
                   </LinkRouter>
                 </Grid>
               </Grid>

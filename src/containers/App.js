@@ -13,12 +13,14 @@ import { createBrowserHistory } from 'history';
 
 const browserHistory = createBrowserHistory();
 
+const initialState = {};
 class App extends Component  {
 
   render() {
     return (
       <ThemeProvider theme={theme}>
-        <Router history={browserHistory}>
+        <Router
+          history={browserHistory}>
           <Routes />
         </Router>
       </ThemeProvider>
