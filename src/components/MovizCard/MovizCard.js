@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import InfoIcon from '@material-ui/icons/Info';
 import Tooltip from '@material-ui/core/Tooltip';
+
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import {
@@ -55,13 +57,13 @@ const useStyles = makeStyles(theme => ({
     marginRight: '10px',
   },
   toolTipPopper:{
-    width: '100px',
-    height: '100px',
-    fontSize: '100px',
+    width: '60px',
+    height: '60px',
   },
   toolTip:{
-    fontSize:'40px',
-    rippleBackgroundColor: 'blue',
+    fontSize:'20px',
+    textAlign: 'center',
+    backgroundColor: theme.palette.primary.light,
     color: theme.palette.primary.main,
   }
 }));
@@ -131,7 +133,7 @@ const MovizCard = props => {
             <IconButton
               className={classes.iconButton}
               >
-                <InfoIcon className={classes.heartIcon}/>
+                <FavoriteBorderIcon className={classes.heartIcon}/>
             </IconButton>
           </Tooltip>
 
