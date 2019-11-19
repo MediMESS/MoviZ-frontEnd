@@ -72,7 +72,7 @@ class SignIn extends Component {
   onPasswordChange = (e) => {this.setState({password: e.target.value})}
 
   onSignIn = (e) => {
-    // fetch('https://moviz-  app.herokuapp.com/signIn', {
+    // fetch('https://moviz-app.herokuapp.com/signIn', {
     fetch('http://localhost:4000/signIn', {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
@@ -107,7 +107,7 @@ class SignIn extends Component {
           <div className={classes.paper}>
           {
             this.state.signInError ?
-            <h2 style={{color:'red', marginBottom:'0'}}>WRONG CREDENTIALS!</h2>
+            <h2 style={{color:'red', margin: '20px 0 0 0'}}>WRONG CREDENTIALS!</h2>
             :<div></div>
           }
             <Avatar className={classes.avatar}>

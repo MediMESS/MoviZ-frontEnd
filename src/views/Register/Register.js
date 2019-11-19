@@ -77,9 +77,20 @@ var constraints = {
       message:'must be 6 to 15 characters'
     }
   },
-  // name: {
-  //   message: '%{value} is not valid name, it should contains only characters'
-  // },
+  firstName: {
+    format: {
+      pattern: "[a-z]+",
+      flags: "i",
+      message: 'must be characters'
+    }
+  },
+  lastName: {
+    format: {
+      pattern: "[a-z]+",
+      flags: "i",
+      message: 'must be characters'
+    }
+  },
 }
 class SignUp extends Component {
   constructor(props){
@@ -91,15 +102,16 @@ class SignUp extends Component {
         favorite_movie:'',
         email: '',
         password: '',
-        registerError: false,
         checkBoxChecked: false,
       },
     error: {
+      registerError: false,
       first_name:'',
       last_name: '',
       favorite_movie:'',
       email: '',
       password: '',
+      checkBox: '',
     }
   }
 }
@@ -167,60 +179,113 @@ class SignUp extends Component {
 
   validateForm = () => {
     let valide = true;
-    let emailError = validate({e_mail: this.state.user.email},constraints);
-    let passwordError = validate({password: this.state.user.password},constraints);
-    console.log(passwordError);
-    let firstNameError = this.state.user.first_name;
-    let lastNameError = this.state.user.last_name;
-    let favoriteMovie = this.state.user.favoriteMovie;
-    let checkBoxChecked = this.state.user.checkBoxChecked;
+    let emailError = validate({e_mail: this.state.user.email},constraints) || "";
+    let passwordError = validate({password: this.state.user.password},constraints) || "";
+    let firstNameError = validate({firstName: this.state.user.first_name},constraints) || "";
+    let lastNameError = validate({lastName: this.state.user.last_name},constraints) || "";
+    let favoriteMovieError = "";
+    let checkBoxCheckedError = "";
+
       // email
       if(validate.isEmpty(this.state.user.email))
       {
         emailError = 'Email Is Empty!'
       }
-      else if(emailError)
+      else if(!validate.isEmpty(emailError))
       {
         emailError = emailError.e_mail[0];
       }
-      if(emailError){
-        this.setState(prevState =>({
-          error: {
-            ...prevState.error,
-            email: emailError
-          },
-          ...prevState.user
-        }));
+      if(!validate.isEmpty(emailError)){
+        valide = false;
       }
+
       // password
       if(validate.isEmpty(this.state.user.password))
       {
         passwordError = 'Password Is Empty!'
       }
-      else if(passwordError)
+      else if(!validate.isEmpty(passwordError))
       {
         passwordError = passwordError.password[0];
       }
-      if(passwordError)
+
+      if(!validate.isEmpty(passwordError))
       {
-        this.setState(prevState =>({
-          error: {
-            ...prevState.error,
-            password: passwordError
-          },
-          ...prevState.user
-        }));
+        valide = false;
       }
 
-        console.log(emailError);
+      // firstName
+      if(validate.isEmpty(this.state.user.first_name))
+      {
+        firstNameError = 'firstName Is Empty!'
+      }
+      else if(!validate.isEmpty(firstNameError))
+      {
+        firstNameError = firstNameError.firstName[0]
+      }
+
+      if(!validate.isEmpty(firstNameError))
+      {
+        valide = false;
+      }
+
+      // lastName
+      if(validate.isEmpty(this.state.user.last_name))
+      {
+        lastNameError = 'lastName Is Empty!'
+      }
+      else if(!validate.isEmpty(lastNameError))
+      {
+        lastNameError = lastNameError.lastName[0]
+      }
+
+      if(!validate.isEmpty(lastNameError))
+      {
+        valide = false;
+      }
+
+      // favorite_movie
+      if(validate.isEmpty(this.state.user.favorite_movie))
+      {
+        favoriteMovieError = 'favourite Movie Is Empty!'
+        valide = false;
+      }
+
+      // checked Policy
+      if(!this.state.checkBoxChecked)
+      {
+        checkBoxCheckedError = "You Must Agree by checking to Sign Up!"
+        valide=false;
+      }
+
+      this.setState(prevState =>({
+        error: {
+          email: emailError,
+          last_name: lastNameError,
+          favorite_movie: favoriteMovieError,
+          checkBox: checkBoxCheckedError,
+          first_name: firstNameError,
+          password: passwordError
+        },
+        ...prevState.user
+      }));
     // console.log(errorMsg.emailValidate[0]);
-    return false;
+    return valide;
   }
 
   onRegister = () => {
     // fetch('https://moviz-app.herokuapp.com/register', {
     if(!this.validateForm())
-      this.setState({registerError: true});
+    {
+      this.setState(prevState =>({
+        error: {
+          ...prevState.error,
+          registerError: true
+        },
+        ...prevState.user
+      }));
+      return;
+    }
     // fetch('http://localhost:4000/register', {
     fetch('http://localhost:4000/register', {
       method: 'post',
@@ -242,7 +307,13 @@ class SignUp extends Component {
         else
         {
           console.log("NO SIGNED UP");
-          this.setState({registerError: true});
+          this.setState(prevState =>({
+            error: {
+              ...prevState.error,
+              registerError: true
+            },
+            ...prevState.user
+          }));
         }
       })
 
@@ -257,7 +328,7 @@ class SignUp extends Component {
           <CssBaseline />
           <div className={classes.paper}>
           {
-            this.state.registerError ?
+            this.state.error.registerError ?
             <h2 style={{color:'red', margin: '20px 0 0 0'}}>Unable to register! Please fill the form with correct information.</h2>
             :<div></div>
           }
@@ -281,6 +352,9 @@ class SignUp extends Component {
                     onChange={this.onFirstNameChange}
                     autoFocus
                   />
+                  <div className={classes.errorStyle}>
+                    {this.state.error.first_name}
+                  </div>
                 </Grid>
                 <Grid item className={classes.gridField} xs={12} sm={6}>
                   <TextField
@@ -293,6 +367,9 @@ class SignUp extends Component {
                     autoComplete="lname"
                     onChange={this.onLastNameChange}
                   />
+                  <div className={classes.errorStyle}>
+                    {this.state.error.last_name}
+                  </div>
                 </Grid>
                 <Grid item className={classes.gridField} xs={12}>
                   <TextField
@@ -337,6 +414,9 @@ class SignUp extends Component {
                     autoComplete="fav-movie"
                     onChange={this.onFavoriteMovieChange}
                   />
+                  <div className={classes.errorStyle}>
+                  {this.state.error.favorite_movie}
+                  </div>
                 </Grid>
                 <Grid item xs={12} style={{display:'flex'}} display="flex">
                   <Checkbox
@@ -349,7 +429,10 @@ class SignUp extends Component {
                       Moviz Policy
                     </LinkMaterialUi>{' '}
                   </Typography>
-                </Grid>
+                  </Grid>
+                  <div style={{textAlign: 'center', width: '100%'}} className={classes.errorStyle}>
+                    {this.state.error.checkBox}
+                  </div>
               </Grid>
               <Button
                 type="submit"
