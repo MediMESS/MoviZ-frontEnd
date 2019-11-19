@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import 'common/UnSigned.css';
+import validate from 'validate.js';
 import { Slogan, NavigationUnSigned } from 'components';
 
 
@@ -52,45 +53,191 @@ const styles = theme => ({
   submit: {
     margin: theme.spacing(1, 0),
   },
+  gridField: {
+    display: 'flex',
+    flexFlow: 'column nowrap'
+  },
+  errorStyle: {
+    color: 'red',
+    fontSize: '15px',
+    paddingTop: '5px'
+  }
 });
 
+var constraints = {
+  e_mail: {
+    email: {
+      message: '%{value} is not valid',
+    }
+  },
+  password: {
+    length: {
+      minimum: 6,
+      maximum: 12,
+      message:'must be 6 to 15 characters'
+    }
+  },
+  // name: {
+  //   message: '%{value} is not valid name, it should contains only characters'
+  // },
+}
 class SignUp extends Component {
   constructor(props){
     super(props);
     this.state = {
-      name:'',
+      user: {
+        first_name:'',
+        last_name: '',
+        favorite_movie:'',
+        email: '',
+        password: '',
+        registerError: false,
+        checkBoxChecked: false,
+      },
+    error: {
+      first_name:'',
+      last_name: '',
+      favorite_movie:'',
       email: '',
       password: '',
-      registerError: false
     }
   }
+}
+  onFirstNameChange = (event) => {
+    const first_name = event.target.value;
+    this.setState(prevState =>({
+      user: {
+        ...prevState.user,
+        first_name: first_name,
+      },
+      ...prevState.error
+    }));
+  }
+  onLastNameChange = (event) => {
+    const last_name = event.target.value;
+    this.setState(prevState =>({
+      user: {
+        ...prevState.user,
+        last_name: last_name,
+      },
+      ...prevState.error
+    }));
+  }
+  onFavoriteMovieChange = (event) => {
+    const favorite_movie = event.target.value;
 
-  onNameChange = (event) => {
-    this.setState({name: event.target.value})
+    this.setState(prevState =>({
+      user: {
+        ...prevState.user,
+        favorite_movie: favorite_movie
+      },
+      ...prevState.error
+    }));
   }
   onEmailChange = (event) => {
-    this.setState({email: event.target.value})
+    const emailInput = event.target.value;
+    this.setState(prevState =>({
+      user: {
+        ...prevState.user,
+        email: emailInput
+      },
+      ...prevState.error
+    }));
   }
   onPasswordChange = (event) => {
-    this.setState({password: event.target.value})
+    const password = event.target.value;
+    this.setState(prevState =>({
+      user: {
+        ...prevState.user,
+        password: password
+      },
+      ...prevState.error
+    }));
+  }
+  onCheckBoxChange = (event) => {
+    const checked = event.target.checked;
+    this.setState(prevState =>({
+      user: {
+        ...prevState.user,
+        checkBoxChecked: checked
+      },
+      ...prevState.error
+    }));
+  }
+
+  validateForm = () => {
+    let valide = true;
+    let emailError = validate({e_mail: this.state.user.email},constraints);
+    let passwordError = validate({password: this.state.user.password},constraints);
+    console.log(passwordError);
+    let firstNameError = this.state.user.first_name;
+    let lastNameError = this.state.user.last_name;
+    let favoriteMovie = this.state.user.favoriteMovie;
+    let checkBoxChecked = this.state.user.checkBoxChecked;
+      // email
+      if(validate.isEmpty(this.state.user.email))
+      {
+        emailError = 'Email Is Empty!'
+      }
+      else if(emailError)
+      {
+        emailError = emailError.e_mail[0];
+      }
+      if(emailError){
+        this.setState(prevState =>({
+          error: {
+            ...prevState.error,
+            email: emailError
+          },
+          ...prevState.user
+        }));
+      }
+      // password
+      if(validate.isEmpty(this.state.user.password))
+      {
+        passwordError = 'Password Is Empty!'
+      }
+      else if(passwordError)
+      {
+        passwordError = passwordError.password[0];
+      }
+      if(passwordError)
+      {
+        this.setState(prevState =>({
+          error: {
+            ...prevState.error,
+            password: passwordError
+          },
+          ...prevState.user
+        }));
+      }
+
+        console.log(emailError);
+    // console.log(errorMsg.emailValidate[0]);
+    return false;
   }
 
   onRegister = () => {
     // fetch('https://moviz-app.herokuapp.com/register', {
+    if(!this.validateForm())
+      this.setState({registerError: true});
+    // fetch('http://localhost:4000/register', {
     fetch('http://localhost:4000/register', {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
         email: this.state.email,
-        name: this.state.name,
+        first_name: this.state.first_name,
+        last_name: this.state.last_name,
+        favorite_movie: this.state.favorite_movie,
         password: this.state.password
       })
     })
       .then(response => response.json())
       .then(user=>{
         if(user.id){
-          console.log("SIGNED UP");
-          this.props.onProfileStatusChange('signed');
+          this.props.onSignedIn(user[0]);
+          this.props.history.push("/moviz");
         }
         else
         {
@@ -111,7 +258,7 @@ class SignUp extends Component {
           <div className={classes.paper}>
           {
             this.state.registerError ?
-            <h2 style={{color:'red', marginBottom:'0'}}>Unable to register! Please fill the form with correct information.</h2>
+            <h2 style={{color:'red', margin: '20px 0 0 0'}}>Unable to register! Please fill the form with correct information.</h2>
             :<div></div>
           }
             <Avatar className={classes.avatar}>
@@ -122,31 +269,32 @@ class SignUp extends Component {
             </Typography>
             <form className={classes.form} noValidate>
               <Grid container spacing={1}>
-                <Grid item xs={12} sm={6}>
+                <Grid item className={classes.gridField} xs={12} sm={6}>
                   <TextField
                     autoComplete="fname"
-                    name="firstName"
+                    name="first_name"
                     variant="outlined"
                     required
                     fullWidth
-                    id="firstName"
+                    id="first_name"
                     label="First Name"
+                    onChange={this.onFirstNameChange}
                     autoFocus
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item className={classes.gridField} xs={12} sm={6}>
                   <TextField
                     variant="outlined"
                     required
                     fullWidth
-                    id="lastName"
+                    id="last_name"
                     label="Last Name"
-                    name="lastName"
+                    name="last_name"
                     autoComplete="lname"
-                    onChange={this.onNameChange}
+                    onChange={this.onLastNameChange}
                   />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item className={classes.gridField} xs={12}>
                   <TextField
                     variant="outlined"
                     required
@@ -157,8 +305,11 @@ class SignUp extends Component {
                     autoComplete="email"
                     onChange={this.onEmailChange}
                   />
+                  <div className={classes.errorStyle}>
+                    {this.state.error.email}
+                  </div>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item className={classes.gridField} xs={12}>
                   <TextField
                     variant="outlined"
                     required
@@ -170,8 +321,11 @@ class SignUp extends Component {
                     autoComplete="current-password"
                     onChange={this.onPasswordChange}
                   />
+                  <div className={classes.errorStyle}>
+                  {this.state.error.password}
+                  </div>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item className={classes.gridField} xs={12}>
                   <TextField
                     variant="outlined"
                     required
@@ -181,10 +335,14 @@ class SignUp extends Component {
                     type="favouriteMovie"
                     id="favouriteMovie"
                     autoComplete="fav-movie"
+                    onChange={this.onFavoriteMovieChange}
                   />
                 </Grid>
                 <Grid item xs={12} style={{display:'flex'}} display="flex">
-                  <Checkbox style={{padding:'5px'}} color="primary" />
+                  <Checkbox
+                    style={{padding:'5px'}}
+                    color="primary"
+                    onChange={this.onCheckBoxChange}/>
                   <Typography style={{color:'black', alignSelf:'center'}}>
                     {'By Checking. I agree to confirm '}
                     <LinkMaterialUi color="primary" href="https://policies.google.com/terms?hl=en-US" style={{fontWeight: 800}}>
@@ -205,7 +363,7 @@ class SignUp extends Component {
                 Sign Up
               </Button>
               <Grid container justify="flex-end">
-                <Grid item>
+                <Grid item className={classes.gridField}>
                   <LinkRouter
                     to="/signIn"
                     variant="body2"

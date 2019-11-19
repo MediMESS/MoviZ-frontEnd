@@ -40,7 +40,6 @@ const AccountProfile = props => {
 
   const classes = useStyles();
   const [values, setValues] = useState({
-    // avatar: profileUser.avatar || '/images/avatars/charmandar.png',
     avatar: profileUser.avatar || '/images/avatars/charmandar.png',
     urlPicture: '',
   });

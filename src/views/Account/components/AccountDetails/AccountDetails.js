@@ -26,8 +26,8 @@ const AccountDetails = props => {
     lastName: user.last_name || "",
     email: user.email || "",
     phone: '',
-    city: user.city || '',
-    country: user.country || ''
+    city: user.city || 'City???',
+    country: user.country || 'Country???'
   });
 
   const handleChange = event => {
