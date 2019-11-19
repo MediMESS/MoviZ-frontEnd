@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import InfoIcon from '@material-ui/icons/Info';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import clsx from 'clsx';
@@ -60,6 +60,10 @@ const useStyles = makeStyles(theme => ({
     width: '60px',
     height: '60px',
   },
+  UnliketoolTipPopper:{
+    width: '80px',
+    height: '60px',
+  },
   toolTip:{
     fontSize:'20px',
     textAlign: 'center',
@@ -68,10 +72,22 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+
 const MovizCard = props => {
   const { className, movie, ...rest } = props;
   const classes = useStyles();
 
+  const [values, setValues] = useState({
+    like: movie.like || false
+  });
+  const updateLike = (movie) => {
+    console.log("UpdateLike");
+    console.log(values);
+    setValues({
+      like: !values.like
+    })
+    console.log(values);
+  }
   return (
     <Card
       {...rest}
@@ -126,17 +142,30 @@ const MovizCard = props => {
             className={classes.statsItem}
             item
           >
-          <Tooltip classes={{
-              popper: classes.toolTipPopper,
-              tooltip: classes.toolTip,
-            }} title="LIKE" placement="bottom">
-            <IconButton
-              className={classes.iconButton}
-              >
-                <FavoriteBorderIcon className={classes.heartIcon}/>
-            </IconButton>
-          </Tooltip>
-
+          {values.like
+          ?<Tooltip classes={{
+                popper: classes.UnliketoolTipPopper,
+                tooltip: classes.toolTip,
+              }} title="UnLike" placement="bottom">
+              <IconButton
+                className={classes.iconButton}
+                onClick={() => {updateLike(movie)}}
+                >
+                  <FavoriteIcon className={classes.heartIcon}/>
+              </IconButton>
+            </Tooltip>
+            :<Tooltip classes={{
+                popper: classes.toolTipPopper,
+                tooltip: classes.toolTip,
+              }} title="Like" placement="bottom">
+              <IconButton
+                className={classes.iconButton}
+                onClick={() => {updateLike(movie)}}
+                >
+                  <FavoriteBorderIcon className={classes.heartIcon}/>
+              </IconButton>
+            </Tooltip>
+          }
           </Grid>
         </Grid>
       </CardActions>
