@@ -33,33 +33,43 @@ class Routes extends Component{
     this.setState({user: {} });
   }
   render() {
-    if(!Object.keys(this.state.user).length)
-      {
-        return (
-          <Switch>
-            <Redirect
-              exact
-              from="/"
-              to="/signIn"
-            />
-            <RouteUnSigned
-              component={SignInView}
-              exact
-              onSignedIn = {this.onSignedIn}
-              path="/signIn"
-            />
-            <RouteUnSigned
-              component={RegisterView}
-              exact
-              onSignedIn = {this.onSignedIn}
-              path="/register"
-            />
-            <Redirect
-              to="/signIn" />
-          </Switch>
-          )
-      }
-    else
+    // if(!Object.keys(this.state.user).length)
+    //   {
+    //     return (
+    //       <Switch>
+    //         <Redirect
+    //           exact
+    //           from="/"
+    //           to="/signIn"
+    //         />
+    //         <RouteUnSigned
+    //           component={SignInView}
+    //           exact
+    //           onSignedIn = {this.onSignedIn}
+    //           path="/signIn"
+    //         />
+    //         <RouteUnSigned
+    //           component={RegisterView}
+    //           exact
+    //           onSignedIn = {this.onSignedIn}
+    //           path="/register"
+    //         />
+    //         <Redirect
+    //           to="/signIn" />
+    //       </Switch>
+    //       )
+    //   }
+    // else
+      const userProfile = {
+        id: 5,
+        first_name: "Mehdi",
+        last_name: "Messarat",
+        email: "mehdimessarat@outlook.fr",
+        joined: "2019-11-06T14:38:40.952Z",
+        country: 'Algeria',
+        city: 'Algiers',
+        avatar: '/images/avatars/charmandar.png'
+      };
       return (
         <Switch>
           <Redirect
@@ -81,7 +91,7 @@ class Routes extends Component{
           />
           <RouteWithLayout
             component={MovizView}
-            user={this.state.user}
+            user={userProfile}
             onUserChange={this.onUserChange}
             onSignOut = {this.onSignOut}
             exact
@@ -93,7 +103,7 @@ class Routes extends Component{
             exact
             onUserChange={this.onUserChange}
             onSignOut = {this.onSignOut}
-            user={this.state.user}
+            user={userProfile}
             layout={MainLayout}
             path="/recommendation"
           />
@@ -102,7 +112,7 @@ class Routes extends Component{
             onUserChange={this.onUserChange}
             component={LikedView}
             exact
-            user={this.state.user}
+            user={userProfile}
             layout={MainLayout}
             path="/liked"
           />
@@ -111,7 +121,7 @@ class Routes extends Component{
             onUserChange={this.onUserChange}
             onSignOut = {this.onSignOut}
             exact
-            user={this.state.user}
+            user={userProfile}
             layout={MainLayout}
             path="/account"
           />
@@ -120,7 +130,7 @@ class Routes extends Component{
             onUserChange={this.onUserChange}
             onSignOut = {this.onSignOut}
             exact
-            user={this.state.user}
+            user={userProfile}
             layout={MinimalLayout}
             path="/not-found"
           />

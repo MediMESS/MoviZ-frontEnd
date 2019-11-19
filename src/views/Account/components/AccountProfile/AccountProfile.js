@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import moment from 'moment';
@@ -36,24 +36,27 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const AccountProfile = props => {
-  const { className, ...rest } = props;
+  const { className, profileUser, ...rest } = props;
 
   const classes = useStyles();
-
+  const [values, setValues] = useState({
+    // avatar: profileUser.avatar || '/images/avatars/charmandar.png',
+    avatar: profileUser.avatar || '/images/avatars/charmandar.png',
+    urlPicture: '',
+  });
   const user = {
-    name: 'Shen Zhi',
-    city: 'Los Angeles',
-    country: 'USA',
-    timezone: 'GTM-7',
-    avatar: '/images/avatars/avatar_11.png'
+    name: profileUser.first_name+' '+profileUser.last_name || '',
+    city: profileUser.city || '',
+    country: profileUser.country || '',
+    joined: profileUser.joined || '',
+    // avatar: 'https://pokecharms.com/data/attachment-files/2015/10/236933_Charmander_Picture.png'
   };
 
   const handleChange = event => {
-    // setValues({
-    //   ...values,
-    //   [event.target.name]: event.target.value
-    // });
-    console.log(event.target.value);
+    setValues({
+      ...values,
+      [event.target.name]: event.target.value
+    });
   };
   return (
     <Card
@@ -67,7 +70,7 @@ const AccountProfile = props => {
               gutterBottom
               variant="h2"
             >
-              John Doe
+              {user.name}
             </Typography>
             <Typography
               className={classes.locationText}
@@ -81,12 +84,12 @@ const AccountProfile = props => {
               color="textSecondary"
               variant="body1"
             >
-              {moment().format('hh:mm A')} ({user.timezone})
+              Joined: {moment().format('YYYY/MM/DD \\AT hh:mm a')} {user.timezone}
             </Typography>
           </div>
           <Avatar
             className={classes.avatar}
-            src={user.avatar}
+            src={values.avatar}
           />
         </div>
         <div className={classes.progress}>
@@ -105,6 +108,7 @@ const AccountProfile = props => {
       label="URL picture"
       margin="dense"
       name="urlPicture"
+      value={values.urlPicture}
       onChange={handleChange}
       variant="outlined"
       />
@@ -113,10 +117,22 @@ const AccountProfile = props => {
           className={classes.uploadButton}
           color="primary"
           variant="text"
+          onClick = {() =>
+            {
+              if(values.urlPicture)
+                setValues({...values, avatar: values.urlPicture})
+            }}
         >
           Upload picture
         </Button>
-        <Button variant="text">Remove picture</Button>
+        <Button
+          variant="text"
+          onClick = {() => setValues({
+            urlPicture: '', avatar: profileUser.avatar || '/images/avatars/charmandar.png'
+          })}
+          >
+          Remove picture
+        </Button>
       </CardActions>
     </Card>
   );

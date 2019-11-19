@@ -27,7 +27,7 @@ const useStyles = theme => ({
     transition: '.2s transform',
     '&:hover':{
       cursor: 'pointer',
-      transform: 'scale(1.1)',
+      transform: 'scale(1.06)',
     }
   }
 });

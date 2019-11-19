@@ -18,17 +18,16 @@ const useStyles = makeStyles(() => ({
 }));
 
 const AccountDetails = props => {
-  const { className, ...rest } = props;
-
+  const { className, user, ...rest } = props;
   const classes = useStyles();
 
   const [values, setValues] = useState({
-    firstName: 'Shen',
-    lastName: 'Zhi',
-    email: 'shen.zhi@devias.io',
+    firstName: user.first_name || "",
+    lastName: user.last_name || "",
+    email: user.email || "",
     phone: '',
-    state: 'Alabama',
-    country: 'USA'
+    city: user.city || '',
+    country: user.country || ''
   });
 
   const handleChange = event => {
@@ -38,7 +37,7 @@ const AccountDetails = props => {
     });
   };
 
-  const states = [
+  const cities = [
     {
       value: 'alabama',
       label: 'Alabama'
@@ -144,7 +143,7 @@ const AccountDetails = props => {
             >
               <TextField
                 fullWidth
-                label="Select State"
+                label="Select City"
                 margin="dense"
                 name="state"
                 onChange={handleChange}
@@ -152,10 +151,10 @@ const AccountDetails = props => {
                 select
                 // eslint-disable-next-line react/jsx-sort-props
                 SelectProps={{ native: true }}
-                value={values.state}
+                value={values.city}
                 variant="outlined"
               >
-                {states.map(option => (
+                {cities.map(option => (
                   <option
                     key={option.value}
                     value={option.value}
