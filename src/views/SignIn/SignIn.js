@@ -97,7 +97,6 @@ class SignIn extends Component {
   render ()
   {
     // console.log("signIn");
-    console.log(this.props);
    const {classes} = this.props;
     return (
       <div className="unSigned">

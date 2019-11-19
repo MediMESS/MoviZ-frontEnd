@@ -25,14 +25,12 @@ class Routes extends Component{
 
   onSignedIn = (userSignedInfos) => {
     this.setState({user: userSignedInfos});
-    console.log("HELLOOOO onSignedIn here");
   }
   onUserChange = (userSignedInfos) => {
     this.setState({user: userSignedInfos});
   }
   onSignOut = () => {
     this.setState({user: {} });
-    console.log("SIGNED OUT");
   }
   render() {
     if(!Object.keys(this.state.user).length)

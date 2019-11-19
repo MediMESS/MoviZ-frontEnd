@@ -100,7 +100,6 @@ class Moviz extends Component {
   render() {
     const {classes} = this.props;
     // console.log("THIS PROPS", this.props);
-    console.log("MOVIZZ");
     return (
       <div className={classes.root}>
         <SearchToolbar
