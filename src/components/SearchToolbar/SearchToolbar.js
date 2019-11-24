@@ -148,7 +148,7 @@ class SearchToolbar extends Component {
   };
 
   render(){
-    const { classes, options, onSubmit, genre, updateGenre } = this.props;
+    const { classes, options, errorGenre, onSubmit, genre, updateGenre } = this.props;
     const { value, suggestions } = this.state;
 
     const inputProps = {
@@ -180,7 +180,8 @@ class SearchToolbar extends Component {
               className={classes.categorie}
               options={options}
               genre = {genre}
-              updateGenre = {updateGenre}/>
+              updateGenre = {updateGenre}
+              errorGenre={errorGenre}/>
             <Button
               color="primary"
               variant="contained"

@@ -7,7 +7,8 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 const ITEM_HEIGHT = 48;
 
-const MovizCategorie = ({options, genre, updateGenre}) => {
+const MovizCategorie = ({options, genre, updateGenre, errorGenre}) => {
+  console.log("erorGEnre MOVIZ CATEGORIE", errorGenre, genre);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -30,6 +31,11 @@ const MovizCategorie = ({options, genre, updateGenre}) => {
         {genre}
         <MoreVertIcon />
       </Button>
+      {errorGenre
+      ?<div style={{color: 'red', paddingTop:'2px'}}>
+          {"Choose Genre"}
+        </div>
+      :<></>}
       <Menu
         id="long-menu"
         anchorEl={anchorEl}

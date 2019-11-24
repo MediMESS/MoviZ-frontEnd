@@ -33,7 +33,7 @@ const useStyles = theme => ({
 });
 
 const options = [
-  'Genre',
+  'GENRE',
   'movie',
   'tvSeries'
 ];
@@ -46,7 +46,8 @@ class Moviz extends Component {
     this.state = {
       searchInput: '',
       movies: data,
-      genre: 'genre'
+      genre: 'GENRE',
+      errorGenre: false,
     };
   }
   componentDidMount(){
@@ -59,8 +60,9 @@ class Moviz extends Component {
     });
   }
   updateGenre = (value) => {
-    console.log(value);
     this.setState({genre: value})
+    if(value != "GENRE")
+      this.setState({errorGenre: false});
   }
   // Teach Autosuggest how to calculate suggestions for any given input value.
   getSuggestions = value => {
@@ -93,7 +95,11 @@ class Moviz extends Component {
 }
 
   onSubmit = (input) => {
-    if(input === "" || this.state.genre === "genre"){
+    if(input === ""){
+      return;
+    }
+    if(this.state.genre === "GENRE"){
+      this.setState({errorGenre: true});
       return;
     }
     console.log(this.state);
@@ -131,6 +137,7 @@ class Moviz extends Component {
           onSubmit={this.onSubmit}
           genre = {this.state.genre}
           updateGenre = {this.updateGenre}
+          errorGenre={this.state.errorGenre}
           />
         <div className={classes.content}>
           <Grid
