@@ -148,7 +148,7 @@ class SearchToolbar extends Component {
   };
 
   render(){
-    const { classes, options, onSubmit } = this.props;
+    const { classes, options, onSubmit, genre, updateGenre } = this.props;
     const { value, suggestions } = this.state;
 
     const inputProps = {
@@ -178,7 +178,9 @@ class SearchToolbar extends Component {
             </Paper>
             <MovizCategorie
               className={classes.categorie}
-              options={options}/>
+              options={options}
+              genre = {genre}
+              updateGenre = {updateGenre}/>
             <Button
               color="primary"
               variant="contained"

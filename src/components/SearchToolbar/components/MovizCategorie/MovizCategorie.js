@@ -7,7 +7,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 const ITEM_HEIGHT = 48;
 
-const MovizCategorie = ({options}) => {
+const MovizCategorie = ({options, genre, updateGenre}) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -27,7 +27,7 @@ const MovizCategorie = ({options}) => {
         onClick={handleClick}
         style={{margin:'0 20px'}}
       >
-        Genre
+        {genre}
         <MoreVertIcon />
       </Button>
       <Menu
@@ -40,11 +40,14 @@ const MovizCategorie = ({options}) => {
           style: {
             maxHeight: ITEM_HEIGHT * 4.5,
             width: 200,
+            fontWeight: 800,
           },
         }}
       >
         {options.map(option => (
-          <MenuItem key={option} selected={option === 'Pyxis'} onClick={handleClose}>
+          <MenuItem
+            key={option}
+            onClick={() => {handleClose(); updateGenre(option)}}>
             {option}
           </MenuItem>
         ))}

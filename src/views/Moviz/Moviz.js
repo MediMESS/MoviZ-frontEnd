@@ -33,20 +33,9 @@ const useStyles = theme => ({
 });
 
 const options = [
-  'None',
-  'Atria',
-  'Callisto',
-  'Dione',
-  'Ganymede',
-  'Hangouts Call',
-  'Luna',
-  'Oberon',
-  'Phobos',
-  'Pyxis',
-  'Sedna',
-  'Titania',
-  'Triton',
-  'Umbriel',
+  'Genre',
+  'movie',
+  'tvSeries'
 ];
 
 class Moviz extends Component {
@@ -57,6 +46,7 @@ class Moviz extends Component {
     this.state = {
       searchInput: '',
       movies: data,
+      genre: 'genre'
     };
   }
   componentDidMount(){
@@ -67,6 +57,10 @@ class Moviz extends Component {
       email: "a",
       joined: "2019-11-06T14:38:40.952Z"
     });
+  }
+  updateGenre = (value) => {
+    console.log(value);
+    this.setState({genre: value})
   }
   // Teach Autosuggest how to calculate suggestions for any given input value.
   getSuggestions = value => {
@@ -99,7 +93,7 @@ class Moviz extends Component {
 }
 
   onSubmit = (input) => {
-    if(input === ""){
+    if(input === "" || this.state.genre === "genre"){
       return;
     }
     console.log(this.state);
@@ -107,7 +101,8 @@ class Moviz extends Component {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
-        input: input
+        input: input,
+        genre: this.state.genre
       })
     })
     .then(prom => prom.json())
@@ -133,7 +128,10 @@ class Moviz extends Component {
         <SearchToolbar
           getSuggestions={this.getSuggestions}
           options={options}
-          onSubmit={this.onSubmit}/>
+          onSubmit={this.onSubmit}
+          genre = {this.state.genre}
+          updateGenre = {this.updateGenre}
+          />
         <div className={classes.content}>
           <Grid
             container
