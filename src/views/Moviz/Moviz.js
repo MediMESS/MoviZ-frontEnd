@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { IconButton, Grid, Typography } from '@material-ui/core';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import 'common/Signed.css';
 import {MovizCard } from 'components';
 import {SearchToolbar} from 'components';
@@ -29,6 +30,10 @@ const useStyles = theme => ({
       cursor: 'pointer',
       transform: 'scale(1.06)',
     }
+  },
+  loading: {
+    color: theme.palette.primary.main,
+    // color: 'red',
   }
 });
 
@@ -48,6 +53,7 @@ class Moviz extends Component {
       movies: data,
       genre: 'GENRE',
       errorGenre: false,
+      completed: true,
     };
   }
   componentDidMount(){
@@ -102,6 +108,7 @@ class Moviz extends Component {
       this.setState({errorGenre: true});
       return;
     }
+    this.setState({completed: false});
     console.log(this.state);
     fetch('http://localhost:4000/searchMoviz', {
       method: 'POST',
@@ -115,7 +122,11 @@ class Moviz extends Component {
     .then(movies => {
       if(movies)
       {
-        this.setState({movies: movies})
+        this.setState({
+          movies: movies,
+          completed: true
+        })
+
       }
       else {
         this.setState({
@@ -139,7 +150,16 @@ class Moviz extends Component {
           updateGenre = {this.updateGenre}
           errorGenre={this.state.errorGenre}
           />
+
         <div className={classes.content}>
+
+        {!this.state.completed
+        ?<div  style={{marginBottom: '10px'}}>
+          <Typography variant="h3" className={classes.loading}>Loading Movies...</Typography>
+          <LinearProgress />
+        </div>
+        :<></>
+        }
           <Grid
             container
             spacing={3}
