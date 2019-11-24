@@ -56,7 +56,7 @@ class Moviz extends Component {
     super(props);
     this.state = {
       searchInput: '',
-      movies: data
+      movies: data,
     };
   }
   componentDidMount(){
@@ -71,7 +71,7 @@ class Moviz extends Component {
   // Teach Autosuggest how to calculate suggestions for any given input value.
   getSuggestions = value => {
     if(value === ""){
-      // this.setState({products: data})
+      this.setState({movies: data})
       return data
     }
     // fetch('http://localhost:4000/searchMoviz', {
@@ -97,14 +97,43 @@ class Moviz extends Component {
         return d.title.toLowerCase().includes(value.toLowerCase() )
       })
 }
+
+  onSubmit = (input) => {
+    if(input === ""){
+      return;
+    }
+    console.log(this.state);
+    fetch('http://localhost:4000/searchMoviz', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        input: input
+      })
+    })
+    .then(prom => prom.json())
+    .then(movies => {
+      if(movies)
+      {
+        this.setState({movies: movies})
+      }
+      else {
+        this.setState({
+          movies: [],
+        })
+      }
+    })
+  }
+
   render() {
     const {classes} = this.props;
     // console.log("THIS PROPS", this.props);
+
     return (
       <div className={classes.root}>
         <SearchToolbar
           getSuggestions={this.getSuggestions}
-          options={options}/>
+          options={options}
+          onSubmit={this.onSubmit}/>
         <div className={classes.content}>
           <Grid
             container

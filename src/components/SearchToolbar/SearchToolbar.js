@@ -121,10 +121,6 @@ class SearchToolbar extends Component {
     }
   }
 
-  onSubmitFunction = () => {
-    console.log(this.state.searchInput);
-  }
-
 
 
   onChange = (event, { newValue }) => {
@@ -152,7 +148,7 @@ class SearchToolbar extends Component {
   };
 
   render(){
-    const { classes, options } = this.props;
+    const { classes, options, onSubmit } = this.props;
     const { value, suggestions } = this.state;
 
     const inputProps = {
@@ -187,6 +183,7 @@ class SearchToolbar extends Component {
               color="primary"
               variant="contained"
               style={{width: '200px', height: '100%'}}
+              onClick={() => {onSubmit(this.state.value)}}
             >
               Search
             </Button>

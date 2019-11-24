@@ -67,7 +67,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const MovizCard = props => {
-  const { className, product, ...rest } = props;
+  const { className, movie, ...rest } = props;
+  console.log(movie);
   const classes = useStyles();
 
   return (
@@ -81,8 +82,8 @@ const MovizCard = props => {
         <div className={classes.imageContainer}>
           <img
 
-            alt="Product"
-            src={product.imageUrl}
+            alt={movie.title}
+            src={movie.imageUrl}
             height="500"
           />
         </div>
@@ -91,7 +92,7 @@ const MovizCard = props => {
           gutterBottom
           className={classes.title}
         >
-          {product.title}
+          {movie.title}
         </Typography>
 
       <Divider />
@@ -110,14 +111,14 @@ const MovizCard = props => {
               variant="body1"
               style={{marginRight:'20px'}}
             >
-              8.4
+              {movie.rating}
             </Typography>
             <GetAppIcon className={classes.statsIcon} />
             <Typography
               display="inline"
               variant="body1"
             >
-              {product.totalDownloads}
+              {movie.totalDownloads}
             </Typography>
           </Grid>
           <Grid
@@ -145,7 +146,7 @@ const MovizCard = props => {
 
 MovizCard.propTypes = {
   className: PropTypes.string,
-  product: PropTypes.object.isRequired
+  movie: PropTypes.object.isRequired
 };
 
 export default MovizCard;

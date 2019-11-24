@@ -141,10 +141,6 @@ class SignIn extends Component {
                 autoComplete="current-password"
                 onChange={this.onPasswordChange}
               />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
               <Button
                 type="submit"
                 fullWidth
@@ -157,11 +153,6 @@ class SignIn extends Component {
                   Sign In
               </Button>
               <Grid container>
-                <Grid item xs style={{textAlign:'left'}}>
-                  <LinkMaterialUi href="#" variant="body2">
-                    Forgot password?
-                  </LinkMaterialUi>
-                </Grid>
                 <Grid item>
                   <LinkRouter
                     variant="body2"
