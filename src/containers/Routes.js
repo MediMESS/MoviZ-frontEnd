@@ -24,6 +24,7 @@ class Routes extends Component{
   }
 
   onSignedIn = (userSignedInfos) => {
+    console.log("onSIgnedIN ROUTES: users = ",userSignedInfos);
     this.setState({user: userSignedInfos});
   }
   onUserChange = (userSignedInfos) => {
@@ -60,18 +61,25 @@ class Routes extends Component{
     //       )
     //   }
     // else
-      const userProfile = {
-        id: 5,
-        first_name: "Mehdi",
-        last_name: "Messarat",
-        email: "mehdimessarat@outlook.fr",
-        joined: "2019-11-06T14:38:40.952Z",
-        country: 'Algeria',
-        city: 'Algiers',
-        avatar: '/images/avatars/charmandar.png'
-      };
+      let userProfile=this.state.user;
+      console.log("this is render: Routes, user: ", userProfile);
+      if(!this.state.user.length)
+      {
+        userProfile = {
+          id: 1,
+          first_name: "Mehdi",
+          last_name: "Messarat",
+          email: "mehdimessarat@outlook.fr",
+          joined: "2019-11-06T14:38:40.952Z",
+          country: 'Algeria',
+          city: 'Algiers',
+          url_profile_picture: '/images/avatars/charmandar.png'
+      }
+    };
+        console.log(this.state.user);
       return (
         <Switch>
+
           <Redirect
             exact
             from="/"

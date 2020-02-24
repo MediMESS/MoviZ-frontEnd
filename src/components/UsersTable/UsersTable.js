@@ -158,7 +158,7 @@ class UsersTable extends Component {
                 <img
 
                   alt="Product"
-                  src={movie.imageUrl}
+                  src={movie.url_picture}
                   className={classes.avatar}
                 />
               <Typography

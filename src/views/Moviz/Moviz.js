@@ -33,7 +33,6 @@ const useStyles = theme => ({
   },
   loading: {
     color: theme.palette.primary.main,
-    // color: 'red',
   }
 });
 
@@ -55,15 +54,6 @@ class Moviz extends Component {
       errorGenre: false,
       completed: true,
     };
-  }
-  componentDidMount(){
-    this.props.onUserChange({
-      id: 5,
-      name: "a",
-      last_name: null,
-      email: "a",
-      joined: "2019-11-06T14:38:40.952Z"
-    });
   }
   updateGenre = (value) => {
     this.setState({genre: value})
@@ -109,7 +99,6 @@ class Moviz extends Component {
       return;
     }
     this.setState({completed: false});
-    console.log(this.state);
     fetch('http://localhost:4000/searchMoviz', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -138,8 +127,8 @@ class Moviz extends Component {
 
   render() {
     const {classes} = this.props;
+    console.log(this.props);
     // console.log("THIS PROPS", this.props);
-
     return (
       <div className={classes.root}>
         <SearchToolbar
@@ -174,7 +163,9 @@ class Moviz extends Component {
                 xs={12}
                 className={classes.paper}
               >
-                <MovizCard movie={movie} />
+                <MovizCard
+                  movie={movie}
+                  user={this.props.user} />
               </Grid>
             ))}
           </Grid>

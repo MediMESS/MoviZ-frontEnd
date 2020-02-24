@@ -85,6 +85,7 @@ class SignIn extends Component {
       .then(user => {
         if(user[0].id)
         {
+          console.log(user);
           this.props.onSignedIn(user[0]);
           this.props.history.push("/moviz");
         }

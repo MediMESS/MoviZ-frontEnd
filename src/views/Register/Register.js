@@ -295,13 +295,15 @@ class SignUp extends Component {
         first_name: this.state.first_name,
         last_name: this.state.last_name,
         favorite_movie: this.state.favorite_movie,
+        url_profile_picture: "/images/avatars/charmandar.png",
         password: this.state.password
       })
     })
       .then(response => response.json())
       .then(user=>{
         if(user.id){
-          this.props.onSignedIn(user[0]);
+          console.log(user);
+          this.props.onSignedIn(user);
           this.props.history.push("/moviz");
         }
         else

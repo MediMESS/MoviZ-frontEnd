@@ -6,19 +6,19 @@ import { makeStyles } from '@material-ui/styles';
 import { Avatar, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    minHeight: 'fit-content'
-  },
-  avatar: {
-    width: 150,
-    height: 150
-  },
-  name: {
-    marginTop: theme.spacing(1),
-  }
+    root: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      minHeight: 'fit-content'
+    },
+    avatar: {
+      width: 150,
+      height: 150
+    },
+    name: {
+      marginTop: theme.spacing(1),
+    }
 }));
 
 const Profile = props => {

@@ -10,10 +10,11 @@ const RouteWithLayout = props => {
       {...rest}
       render={matchProps => (
         <Layout >
-        <Component {...matchProps}
-        user={user}
-        onSignOut={onSignOut}
-        onUserChange = {onUserChange}/>
+          <Component {...matchProps}
+            user={user}
+            onSignOut={onSignOut}
+            onUserChange = {onUserChange}
+          />
         </Layout>
       )}
       />

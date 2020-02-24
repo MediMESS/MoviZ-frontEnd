@@ -80,37 +80,81 @@ class MovizCard extends Component {
       rating: this.props.movie.rating,
       like: this.props.movie.like || false
     }
-    this.getRating();
+    this.loadMovies();
   }
 
-  getRating = () => {
+  loadMovies = () => {
+    // getRating
     if(this.props.movie.rating==="None"){
-      console.log("Hi");
-      fetch('http://localhost:4000/getRating', {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({
-              movieId: this.props.movie.id
-            })
+      fetch(`http://localhost:4000/getRating/${this.props.movie.id}`, {
+          method: 'GET',
+          headers: {'Content-Type': 'application/json'}
           })
           .then(prom => prom.json())
           .then(rating => {
-            console.log("HI getRating");
-            if(rating)
-            {
-              console.log("movie: ",this.props.movie.title, ", rating: ",rating, this.props.movie.id);
-              this.setState({rating: rating})
-            }
-          });
-    console.log("update", this.state.movies);
-  }
+            console.log(rating);
+            this.setState({rating: rating})
+          })
+          .catch(err=> console.log(err));
+      }
+      fetch(`http://localhost:4000/getLike/${this.props.movie.id}`,{
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'}
+      })
+      .then(prom => prom.json())
+      .then(like => {
+        if(like.length){
+          this.setState({like: like});
+        }
+      })
+      .catch(err=> console.log);
+
 }
 
   updateLike = (movie) => {
-    console.log("UpdateLike");
-    this.setState({
-      like: !this.state.like
-    })
+    const infoMovie = {
+      id: movie.id,
+      id_user: this.props.user.id,
+      title: movie.title,
+      year: movie.year,
+      rating: this.state.rating,
+      url_picture: movie.url_picture,
+      state: "liked"
+    };
+
+    if(this.state.like === false){
+      fetch("http://localhost:4000/insertMovie",{
+        method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          movie: infoMovie
+        })
+      })
+      .then(prom => prom.json())
+      .then(resultMovie => {
+        if(resultMovie.id)
+        {
+          this.setState({like: true});
+        }
+      });
+    }
+    else {
+      fetch(`http://localhost:4000/deleteMovie/${infoMovie.id}`,{
+        method: 'delete',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          movieId: infoMovie.id
+        })
+      })
+      .then(prom => prom.json())
+      .then(resultMovie => {
+        if(resultMovie.id)
+        {
+          this.setState({like: false});
+        }
+      });
+    }
+
   }
 
   render(){
@@ -128,7 +172,7 @@ class MovizCard extends Component {
             <img
 
               alt="Product"
-              src={movie.imageUrl}
+              src={movie.url_picture}
               height="500"
             />
           </div>
@@ -177,7 +221,7 @@ class MovizCard extends Component {
                 }} title="UnLike" placement="bottom">
                 <IconButton
                   className={classes.iconButton}
-                  onClick={() => {this.updateLike()}}
+                  onClick={() => {this.updateLike(this.props.movie)}}
                   >
                     <FavoriteIcon className={classes.heartIcon}/>
                 </IconButton>
@@ -188,7 +232,7 @@ class MovizCard extends Component {
                 }} title="Like" placement="bottom">
                 <IconButton
                   className={classes.iconButton}
-                  onClick={() => {this.updateLike()}}
+                  onClick={() => {this.updateLike(this.props.movie)}}
                   >
                     <FavoriteBorderIcon className={classes.heartIcon}/>
                 </IconButton>

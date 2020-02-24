@@ -22,8 +22,23 @@ class Liked extends Component {
   constructor(props){
     super(props);
     this.state = {
-      likedMovies: data,
+      likedMovies: [],
     }
+    this.loadLikedMovies();
+  }
+
+  loadLikedMovies = () => {
+    fetch(`http://localhost:4000/getMoviesLiked/`,{
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'}
+    })
+    .then(prom => prom.json())
+    .then(movies => {
+      this.setState({likedMovies: movies})
+    })
+    .catch(err=> {
+      this.setState({likedMovies: []})
+    });
   }
 
   getSuggestions = value => {

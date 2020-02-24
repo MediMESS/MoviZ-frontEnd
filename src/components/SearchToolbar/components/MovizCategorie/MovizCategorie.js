@@ -8,7 +8,6 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 const ITEM_HEIGHT = 48;
 
 const MovizCategorie = ({options, genre, updateGenre, errorGenre}) => {
-  console.log("erorGEnre MOVIZ CATEGORIE", errorGenre, genre);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
