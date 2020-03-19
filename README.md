@@ -5,7 +5,7 @@ I'm a **PASSIONATE LOVING FULL-STATCK WEB DEV**. This is a web App project i bui
 #### BackEnd : `NodeJs + ExpressJs`
 #### Database : `postGreSQL`
 
-***MoviZ*** is a simulation of database of movies where people can find movies and get movies recommended to them, based on a system of previous movies you liked.
+***MoviZ*** is a simulation of database of movies where people can find movies and get movies recommended to them.
 #### Deployement : https://moviz-app.herokuapp.com/
 
 ## Installation
