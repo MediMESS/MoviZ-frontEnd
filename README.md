@@ -1,5 +1,5 @@
 # MoviZ 
-![moviz](https://user-images.githubusercontent.com/40898323/68087360-5bf57900-fe55-11e9-9cea-a42abd17eb0e.JPG)
+![moviz](https://user-images.githubusercontent.com/40898323/77094586-fde4bf00-6a0c-11ea-8b06-dbf10df84102.JPG)
 I'm a **PASSIONATE LOVING FULL-STATCK WEB DEV**. This is a web App project i built using:
 #### Front end : `REACT + REDUX + Material-Ui`
 #### BackEnd : `NodeJs + ExpressJs`
