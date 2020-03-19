@@ -1,283 +1,272 @@
-import React, {Component} from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import LinkMaterialUi from '@material-ui/core/Link';
-import {Link as LinkRouter} from 'react-router-dom';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import 'common/UnSigned.css';
-import validate from 'validate.js';
-import { Slogan, NavigationUnSigned } from 'components';
-
+import React, { Component } from "react";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import LinkMaterialUi from "@material-ui/core/Link";
+import { Link as LinkRouter } from "react-router-dom";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { withStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import "common/UnSigned.css";
+import validate from "validate.js";
+import { Slogan, NavigationUnSigned } from "components";
 
 function Copyright() {
   return (
-    <Typography variant="body1" style={{color:'black'}} align="center">
-      {'Created By '}
-      <LinkMaterialUi color="primary" href="https://github.com/MediMESS" style={{fontWeight: 800}}>
+    <Typography variant="body1" style={{ color: "black" }} align="center">
+      {"Created By "}
+      <LinkMaterialUi
+        color="primary"
+        href="https://github.com/MediMESS"
+        style={{ fontWeight: 800 }}
+      >
         Mehdi Messarat
-      </LinkMaterialUi>{' '}
+      </LinkMaterialUi>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
 
 const styles = theme => ({
-  '@global': {
+  "@global": {
     body: {
-      backgroundColor: theme.palette.common.white,
-    },
+      backgroundColor: theme.palette.common.white
+    }
   },
   paper: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center"
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.primary.main
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(1)
   },
   submit: {
-    margin: theme.spacing(1, 0),
+    margin: theme.spacing(1, 0)
   },
   gridField: {
-    display: 'flex',
-    flexFlow: 'column nowrap'
+    display: "flex",
+    flexFlow: "column nowrap"
   },
   errorStyle: {
-    color: 'red',
-    fontSize: '15px',
-    paddingTop: '5px'
+    color: "red",
+    fontSize: "15px",
+    paddingTop: "5px"
   }
 });
 
 var constraints = {
   e_mail: {
     email: {
-      message: '%{value} is not valid',
+      message: "%{value} is not valid"
     }
   },
   password: {
     length: {
       minimum: 6,
       maximum: 12,
-      message:'must be 6 to 15 characters'
+      message: "must be 6 to 15 characters"
     }
   },
   firstName: {
     format: {
       pattern: "[a-z]+",
       flags: "i",
-      message: 'must be characters'
+      message: "must be characters"
     }
   },
   lastName: {
     format: {
       pattern: "[a-z]+",
       flags: "i",
-      message: 'must be characters'
+      message: "must be characters"
     }
-  },
-}
+  }
+};
 class SignUp extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       user: {
-        first_name:'',
-        last_name: '',
-        favorite_movie:'',
-        email: '',
-        password: '',
-        checkBoxChecked: false,
+        first_name: "",
+        last_name: "",
+        favorite_movie: "",
+        email: "",
+        password: "",
+        checkBoxChecked: false
       },
-    error: {
-      registerError: false,
-      first_name:'',
-      last_name: '',
-      favorite_movie:'',
-      email: '',
-      password: '',
-      checkBox: '',
-    }
+      error: {
+        registerError: false,
+        first_name: "",
+        last_name: "",
+        favorite_movie: "",
+        email: "",
+        password: "",
+        checkBox: ""
+      }
+    };
   }
-}
-  onFirstNameChange = (event) => {
+  onFirstNameChange = event => {
     const first_name = event.target.value;
-    this.setState(prevState =>({
+    this.setState(prevState => ({
       user: {
         ...prevState.user,
-        first_name: first_name,
+        first_name: first_name
       },
       ...prevState.error
     }));
-  }
-  onLastNameChange = (event) => {
+  };
+  onLastNameChange = event => {
     const last_name = event.target.value;
-    this.setState(prevState =>({
+    this.setState(prevState => ({
       user: {
         ...prevState.user,
-        last_name: last_name,
+        last_name: last_name
       },
       ...prevState.error
     }));
-  }
-  onFavoriteMovieChange = (event) => {
+  };
+  onFavoriteMovieChange = event => {
     const favorite_movie = event.target.value;
 
-    this.setState(prevState =>({
+    this.setState(prevState => ({
       user: {
         ...prevState.user,
         favorite_movie: favorite_movie
       },
       ...prevState.error
     }));
-  }
-  onEmailChange = (event) => {
+  };
+  onEmailChange = event => {
     const emailInput = event.target.value;
-    this.setState(prevState =>({
+    this.setState(prevState => ({
       user: {
         ...prevState.user,
         email: emailInput
       },
       ...prevState.error
     }));
-  }
-  onPasswordChange = (event) => {
+  };
+  onPasswordChange = event => {
     const password = event.target.value;
-    this.setState(prevState =>({
+    this.setState(prevState => ({
       user: {
         ...prevState.user,
         password: password
       },
       ...prevState.error
     }));
-  }
-  onCheckBoxChange = (event) => {
+  };
+  onCheckBoxChange = event => {
     const checked = event.target.checked;
-    this.setState(prevState =>({
+    this.setState(prevState => ({
       user: {
         ...prevState.user,
         checkBoxChecked: checked
       },
       ...prevState.error
     }));
-  }
+  };
 
   validateForm = () => {
     let valide = true;
-    let emailError = validate({e_mail: this.state.user.email},constraints) || "";
-    let passwordError = validate({password: this.state.user.password},constraints) || "";
-    let firstNameError = validate({firstName: this.state.user.first_name},constraints) || "";
-    let lastNameError = validate({lastName: this.state.user.last_name},constraints) || "";
+    let emailError =
+      validate({ e_mail: this.state.user.email }, constraints) || "";
+    let passwordError =
+      validate({ password: this.state.user.password }, constraints) || "";
+    let firstNameError =
+      validate({ firstName: this.state.user.first_name }, constraints) || "";
+    let lastNameError =
+      validate({ lastName: this.state.user.last_name }, constraints) || "";
     let favoriteMovieError = "";
     let checkBoxCheckedError = "";
 
-      // email
-      if(validate.isEmpty(this.state.user.email))
-      {
-        emailError = 'Email Is Empty!'
-      }
-      else if(!validate.isEmpty(emailError))
-      {
-        emailError = emailError.e_mail[0];
-      }
-      if(!validate.isEmpty(emailError)){
-        valide = false;
-      }
+    // email
+    if (validate.isEmpty(this.state.user.email)) {
+      emailError = "Email Is Empty!";
+    } else if (!validate.isEmpty(emailError)) {
+      emailError = emailError.e_mail[0];
+    }
+    if (!validate.isEmpty(emailError)) {
+      valide = false;
+    }
 
-      // password
-      if(validate.isEmpty(this.state.user.password))
-      {
-        passwordError = 'Password Is Empty!'
-      }
-      else if(!validate.isEmpty(passwordError))
-      {
-        passwordError = passwordError.password[0];
-      }
+    // password
+    if (validate.isEmpty(this.state.user.password)) {
+      passwordError = "Password Is Empty!";
+    } else if (!validate.isEmpty(passwordError)) {
+      passwordError = passwordError.password[0];
+    }
 
-      if(!validate.isEmpty(passwordError))
-      {
-        valide = false;
-      }
+    if (!validate.isEmpty(passwordError)) {
+      valide = false;
+    }
 
-      // firstName
-      if(validate.isEmpty(this.state.user.first_name))
-      {
-        firstNameError = 'firstName Is Empty!'
-      }
-      else if(!validate.isEmpty(firstNameError))
-      {
-        firstNameError = firstNameError.firstName[0]
-      }
+    // firstName
+    if (validate.isEmpty(this.state.user.first_name)) {
+      firstNameError = "firstName Is Empty!";
+    } else if (!validate.isEmpty(firstNameError)) {
+      firstNameError = firstNameError.firstName[0];
+    }
 
-      if(!validate.isEmpty(firstNameError))
-      {
-        valide = false;
-      }
+    if (!validate.isEmpty(firstNameError)) {
+      valide = false;
+    }
 
-      // lastName
-      if(validate.isEmpty(this.state.user.last_name))
-      {
-        lastNameError = 'lastName Is Empty!'
-      }
-      else if(!validate.isEmpty(lastNameError))
-      {
-        lastNameError = lastNameError.lastName[0]
-      }
+    // lastName
+    if (validate.isEmpty(this.state.user.last_name)) {
+      lastNameError = "lastName Is Empty!";
+    } else if (!validate.isEmpty(lastNameError)) {
+      lastNameError = lastNameError.lastName[0];
+    }
 
-      if(!validate.isEmpty(lastNameError))
-      {
-        valide = false;
-      }
+    if (!validate.isEmpty(lastNameError)) {
+      valide = false;
+    }
 
-      // favorite_movie
-      if(validate.isEmpty(this.state.user.favorite_movie))
-      {
-        favoriteMovieError = 'favourite Movie Is Empty!'
-        valide = false;
-      }
+    // favorite_movie
+    if (validate.isEmpty(this.state.user.favorite_movie)) {
+      favoriteMovieError = "favourite Movie Is Empty!";
+      valide = false;
+    }
 
-      // checked Policy
-      if(!this.state.checkBoxChecked)
-      {
-        checkBoxCheckedError = "You Must Agree by checking to Sign Up!"
-        valide=false;
-      }
+    // checked Policy
+    if (!this.state.checkBoxChecked) {
+      checkBoxCheckedError = "You Must Agree by checking to Sign Up!";
+      valide = false;
+    }
 
-      this.setState(prevState =>({
-        error: {
-          email: emailError,
-          last_name: lastNameError,
-          favorite_movie: favoriteMovieError,
-          checkBox: checkBoxCheckedError,
-          first_name: firstNameError,
-          password: passwordError
-        },
-        ...prevState.user
-      }));
+    this.setState(prevState => ({
+      error: {
+        email: emailError,
+        last_name: lastNameError,
+        favorite_movie: favoriteMovieError,
+        checkBox: checkBoxCheckedError,
+        first_name: firstNameError,
+        password: passwordError
+      },
+      ...prevState.user
+    }));
     // console.log(errorMsg.emailValidate[0]);
     return valide;
-  }
+  };
 
   onRegister = () => {
     // fetch('https://moviz-app.herokuapp.com/register', {
-    if(!this.validateForm())
-    {
-      this.setState(prevState =>({
+    if (!this.validateForm()) {
+      this.setState(prevState => ({
         error: {
           ...prevState.error,
           registerError: true
@@ -286,10 +275,10 @@ class SignUp extends Component {
       }));
       return;
     }
-    // fetch('http://localhost:4000/register', {
-    fetch('http://localhost:4000/register', {
-      method: 'post',
-      headers: {'Content-Type': 'application/json'},
+    // fetch('https://moviz-backend.herokuapp.com/', {
+    fetch("https://moviz-backend.herokuapp.com/", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         email: this.state.email,
         first_name: this.state.first_name,
@@ -300,16 +289,14 @@ class SignUp extends Component {
       })
     })
       .then(response => response.json())
-      .then(user=>{
-        if(user.id){
+      .then(user => {
+        if (user.id) {
           console.log(user);
           this.props.onSignedIn(user);
           this.props.history.push("/moviz");
-        }
-        else
-        {
+        } else {
           console.log("NO SIGNED UP");
-          this.setState(prevState =>({
+          this.setState(prevState => ({
             error: {
               ...prevState.error,
               registerError: true
@@ -317,23 +304,29 @@ class SignUp extends Component {
             ...prevState.user
           }));
         }
-      })
-
-  }
+      });
+  };
   render() {
-    const {classes} = this.props;
+    const { classes } = this.props;
     return (
       <div className="unSigned">
         <NavigationUnSigned />
         <Slogan />
-        <Container component="main" maxWidth="xs" style={{backgroundColor:"white"}}>
+        <Container
+          component="main"
+          maxWidth="xs"
+          style={{ backgroundColor: "white" }}
+        >
           <CssBaseline />
           <div className={classes.paper}>
-          {
-            this.state.error.registerError ?
-            <h2 style={{color:'red', margin: '20px 0 0 0'}}>Unable to register! Please fill the form with correct information.</h2>
-            :<div></div>
-          }
+            {this.state.error.registerError ? (
+              <h2 style={{ color: "red", margin: "20px 0 0 0" }}>
+                Unable to register! Please fill the form with correct
+                information.
+              </h2>
+            ) : (
+              <div></div>
+            )}
             <Avatar className={classes.avatar}>
               <LockOutlinedIcon />
             </Avatar>
@@ -401,7 +394,7 @@ class SignUp extends Component {
                     onChange={this.onPasswordChange}
                   />
                   <div className={classes.errorStyle}>
-                  {this.state.error.password}
+                    {this.state.error.password}
                   </div>
                 </Grid>
                 <Grid item className={classes.gridField} xs={12}>
@@ -417,24 +410,32 @@ class SignUp extends Component {
                     onChange={this.onFavoriteMovieChange}
                   />
                   <div className={classes.errorStyle}>
-                  {this.state.error.favorite_movie}
+                    {this.state.error.favorite_movie}
                   </div>
                 </Grid>
-                <Grid item xs={12} style={{display:'flex'}} display="flex">
+                <Grid item xs={12} style={{ display: "flex" }} display="flex">
                   <Checkbox
-                    style={{padding:'5px'}}
+                    style={{ padding: "5px" }}
                     color="primary"
-                    onChange={this.onCheckBoxChange}/>
-                  <Typography style={{color:'black', alignSelf:'center'}}>
-                    {'By Checking. I agree to confirm '}
-                    <LinkMaterialUi color="primary" href="https://policies.google.com/terms?hl=en-US" style={{fontWeight: 800}}>
+                    onChange={this.onCheckBoxChange}
+                  />
+                  <Typography style={{ color: "black", alignSelf: "center" }}>
+                    {"By Checking. I agree to confirm "}
+                    <LinkMaterialUi
+                      color="primary"
+                      href="https://policies.google.com/terms?hl=en-US"
+                      style={{ fontWeight: 800 }}
+                    >
                       Moviz Policy
-                    </LinkMaterialUi>{' '}
+                    </LinkMaterialUi>{" "}
                   </Typography>
-                  </Grid>
-                  <div style={{textAlign: 'center', width: '100%'}} className={classes.errorStyle}>
-                    {this.state.error.checkBox}
-                  </div>
+                </Grid>
+                <div
+                  style={{ textAlign: "center", width: "100%" }}
+                  className={classes.errorStyle}
+                >
+                  {this.state.error.checkBox}
+                </div>
               </Grid>
               <Button
                 type="submit"
@@ -452,8 +453,8 @@ class SignUp extends Component {
                   <LinkRouter
                     to="/signIn"
                     variant="body2"
-                    style={{cursor:'pointer'}}
-                    >
+                    style={{ cursor: "pointer" }}
+                  >
                     Already have an account? Sign in
                   </LinkRouter>
                 </Grid>
