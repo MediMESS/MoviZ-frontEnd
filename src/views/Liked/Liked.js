@@ -26,7 +26,7 @@ class Liked extends Component {
   }
 
   loadLikedMovies = () => {
-    fetch(`http://localhost:4000/getMoviesLiked/`, {
+    fetch(`https://moviz-backend.herokuapp.com/getMoviesLiked/`, {
       method: "GET",
       headers: { "Content-Type": "application/json" }
     })
@@ -44,7 +44,7 @@ class Liked extends Component {
       this.setState({ likedMovies: data });
       return data;
     }
-    // fetch('https://moviz-backend.herokuapp.com/', {
+    // fetch('https://moviz-backend.herokuapp.com/searchDashboard', {
     //   method: 'post',
     //   headers: {'Content-Type':'application/json'},
     //   body: JSON.stringify({

@@ -79,7 +79,7 @@ class SignIn extends Component {
 
   onSignIn = e => {
     // fetch('https://moviz-app.herokuapp.com/signIn', {
-    fetch("https://moviz-backend.herokuapp.com/", {
+    fetch("https://moviz-backend.herokuapp.com/signIn", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

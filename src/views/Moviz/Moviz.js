@@ -91,7 +91,7 @@ class Moviz extends Component {
       return;
     }
     this.setState({ completed: false });
-    fetch("https://moviz-backend.herokuapp.com/", {
+    fetch("https://moviz-backend.herokuapp.com/searchMoviz", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

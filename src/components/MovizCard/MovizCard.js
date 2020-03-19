@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import IconButton from '@material-ui/core/IconButton';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import Tooltip from '@material-ui/core/Tooltip';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import IconButton from "@material-ui/core/IconButton";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import Tooltip from "@material-ui/core/Tooltip";
 
-import clsx from 'clsx';
-import { withStyles } from '@material-ui/styles';
+import clsx from "clsx";
+import { withStyles } from "@material-ui/styles";
 import {
   Card,
   CardContent,
@@ -14,35 +14,34 @@ import {
   Typography,
   Grid,
   Divider
-} from '@material-ui/core';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import GetAppIcon from '@material-ui/icons/GetApp';
+} from "@material-ui/core";
+import AccessTimeIcon from "@material-ui/icons/AccessTime";
+import GetAppIcon from "@material-ui/icons/GetApp";
 
 const useStyles = theme => ({
-  root: {
-  },
+  root: {},
   imageContainer: {
-    margin: '0 auto',
+    margin: "0 auto",
     border: `1px solid ${theme.palette.divider}`,
-    overflow: 'hidden',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
+    overflow: "hidden",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
   },
   image: {
-    width:'500px',
-    height: '500px',
+    width: "500px",
+    height: "500px"
   },
-  title:{
-    fontSize: '25px',
-    fontWeight:'700',
-    margin:'10px 0',
-    width: '100%',
-    color:theme.palette.text.primary,
+  title: {
+    fontSize: "25px",
+    fontWeight: "700",
+    margin: "10px 0",
+    width: "100%",
+    color: theme.palette.text.primary
   },
   statsItem: {
-    display: 'flex',
-    alignItems: 'center'
+    display: "flex",
+    alignItems: "center"
   },
   statsIcon: {
     color: theme.palette.icon,
@@ -50,28 +49,27 @@ const useStyles = theme => ({
   },
   iconButton: {
     color: theme.palette.icon,
-    padding: 0,
+    padding: 0
   },
   heartIcon: {
     color: theme.palette.primary.main,
-    marginRight: '10px',
+    marginRight: "10px"
   },
-  toolTipPopper:{
-    width: '60px',
-    height: '60px',
+  toolTipPopper: {
+    width: "60px",
+    height: "60px"
   },
-  UnliketoolTipPopper:{
-    width: '80px',
-    height: '60px',
+  UnliketoolTipPopper: {
+    width: "80px",
+    height: "60px"
   },
-  toolTip:{
-    fontSize:'20px',
-    textAlign: 'center',
+  toolTip: {
+    fontSize: "20px",
+    textAlign: "center",
     backgroundColor: theme.palette.primary.light,
-    color: theme.palette.primary.main,
+    color: theme.palette.primary.main
   }
 });
-
 
 class MovizCard extends Component {
   constructor(props) {
@@ -79,39 +77,44 @@ class MovizCard extends Component {
     this.state = {
       rating: this.props.movie.rating,
       like: this.props.movie.like || false
-    }
+    };
     this.loadMovies();
   }
 
   loadMovies = () => {
     // getRating
-    if(this.props.movie.rating==="None"){
-      fetch(`http://localhost:4000/getRating/${this.props.movie.id}`, {
-          method: 'GET',
-          headers: {'Content-Type': 'application/json'}
-          })
-          .then(prom => prom.json())
-          .then(rating => {
-            console.log(rating);
-            this.setState({rating: rating})
-          })
-          .catch(err=> console.log(err));
+    if (this.props.movie.rating === "None") {
+      fetch(
+        `https://moviz-backend.herokuapp.com/getRating/${this.props.movie.id}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" }
+        }
+      )
+        .then(prom => prom.json())
+        .then(rating => {
+          console.log(rating);
+          this.setState({ rating: rating });
+        })
+        .catch(err => console.log(err));
+    }
+    fetch(
+      `https://moviz-backend.herokuapp.com/getLike/${this.props.movie.id}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" }
       }
-      fetch(`http://localhost:4000/getLike/${this.props.movie.id}`,{
-        method: 'GET',
-        headers: {'Content-Type': 'application/json'}
-      })
+    )
       .then(prom => prom.json())
       .then(like => {
-        if(like.length){
-          this.setState({like: like});
+        if (like.length) {
+          this.setState({ like: like });
         }
       })
-      .catch(err=> console.log);
+      .catch(err => console.log);
+  };
 
-}
-
-  updateLike = (movie) => {
+  updateLike = movie => {
     const infoMovie = {
       id: movie.id,
       id_user: this.props.user.id,
@@ -122,129 +125,112 @@ class MovizCard extends Component {
       state: "liked"
     };
 
-    if(this.state.like === false){
-      fetch("http://localhost:4000/insertMovie",{
-        method: 'post',
-        headers: {'Content-Type': 'application/json'},
+    if (this.state.like === false) {
+      fetch("https://moviz-backend.herokuapp.com/insertMovie", {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           movie: infoMovie
         })
       })
-      .then(prom => prom.json())
-      .then(resultMovie => {
-        if(resultMovie.id)
-        {
-          this.setState({like: true});
-        }
-      });
-    }
-    else {
-      fetch(`http://localhost:4000/deleteMovie/${infoMovie.id}`,{
-        method: 'delete',
-        headers: {'Content-Type': 'application/json'},
+        .then(prom => prom.json())
+        .then(resultMovie => {
+          if (resultMovie.id) {
+            this.setState({ like: true });
+          }
+        });
+    } else {
+      fetch(`https://moviz-backend.herokuapp.com/deleteMovie/${infoMovie.id}`, {
+        method: "delete",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           movieId: infoMovie.id
         })
       })
-      .then(prom => prom.json())
-      .then(resultMovie => {
-        if(resultMovie.id)
-        {
-          this.setState({like: false});
-        }
-      });
+        .then(prom => prom.json())
+        .then(resultMovie => {
+          if (resultMovie.id) {
+            this.setState({ like: false });
+          }
+        });
     }
+  };
 
-  }
-
-  render(){
+  render() {
     const { className, classes, movie, ...rest } = this.props;
 
     return (
-      <Card
-        {...rest}
-      >
-        <CardContent
-          style={{paddingBottom: '0'}}
-          className={classes.root}
-        >
+      <Card {...rest}>
+        <CardContent style={{ paddingBottom: "0" }} className={classes.root}>
           <div className={classes.imageContainer}>
-            <img
-
-              alt="Product"
-              src={movie.url_picture}
-              height="500"
-            />
+            <img alt="Product" src={movie.url_picture} height="500" />
           </div>
-          <Typography
-            align="center"
-            gutterBottom
-            className={classes.title}
-          >
+          <Typography align="center" gutterBottom className={classes.title}>
             {movie.title}
           </Typography>
 
-        <Divider />
-        <CardActions>
-          <Grid
-            container
-            justify="space-between"
-          >
-            <Grid
-              className={classes.statsItem}
-              item
-            >
-              <AccessTimeIcon className={classes.statsIcon} />
-              <Typography
-                display="inline"
-                variant="body1"
-                style={{marginRight:'20px'}}
-              >
-                {this.state.rating}
-              </Typography>
-              <GetAppIcon className={classes.statsIcon} />
-              <Typography
-                display="inline"
-                variant="body1"
-              >
-                {movie.year}
-              </Typography>
-            </Grid>
-            <Grid
-              className={classes.statsItem}
-              item
-            >
-            {this.state.like
-            ?<Tooltip classes={{
-                  popper: classes.UnliketoolTipPopper,
-                  tooltip: classes.toolTip,
-                }} title="UnLike" placement="bottom">
-                <IconButton
-                  className={classes.iconButton}
-                  onClick={() => {this.updateLike(this.props.movie)}}
+          <Divider />
+          <CardActions>
+            <Grid container justify="space-between">
+              <Grid className={classes.statsItem} item>
+                <AccessTimeIcon className={classes.statsIcon} />
+                <Typography
+                  display="inline"
+                  variant="body1"
+                  style={{ marginRight: "20px" }}
+                >
+                  {this.state.rating}
+                </Typography>
+                <GetAppIcon className={classes.statsIcon} />
+                <Typography display="inline" variant="body1">
+                  {movie.year}
+                </Typography>
+              </Grid>
+              <Grid className={classes.statsItem} item>
+                {this.state.like ? (
+                  <Tooltip
+                    classes={{
+                      popper: classes.UnliketoolTipPopper,
+                      tooltip: classes.toolTip
+                    }}
+                    title="UnLike"
+                    placement="bottom"
                   >
-                    <FavoriteIcon className={classes.heartIcon}/>
-                </IconButton>
-              </Tooltip>
-              :<Tooltip classes={{
-                  popper: classes.toolTipPopper,
-                  tooltip: classes.toolTip,
-                }} title="Like" placement="bottom">
-                <IconButton
-                  className={classes.iconButton}
-                  onClick={() => {this.updateLike(this.props.movie)}}
+                    <IconButton
+                      className={classes.iconButton}
+                      onClick={() => {
+                        this.updateLike(this.props.movie);
+                      }}
+                    >
+                      <FavoriteIcon className={classes.heartIcon} />
+                    </IconButton>
+                  </Tooltip>
+                ) : (
+                  <Tooltip
+                    classes={{
+                      popper: classes.toolTipPopper,
+                      tooltip: classes.toolTip
+                    }}
+                    title="Like"
+                    placement="bottom"
                   >
-                    <FavoriteBorderIcon className={classes.heartIcon}/>
-                </IconButton>
-              </Tooltip>
-            }
+                    <IconButton
+                      className={classes.iconButton}
+                      onClick={() => {
+                        this.updateLike(this.props.movie);
+                      }}
+                    >
+                      <FavoriteBorderIcon className={classes.heartIcon} />
+                    </IconButton>
+                  </Tooltip>
+                )}
+              </Grid>
             </Grid>
-          </Grid>
-        </CardActions>
-      </CardContent>
-    </Card>
+          </CardActions>
+        </CardContent>
+      </Card>
     );
-  };
+  }
 }
 MovizCard.propTypes = {
   className: PropTypes.string,
