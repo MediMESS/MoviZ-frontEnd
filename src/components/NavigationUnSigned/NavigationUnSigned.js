@@ -1,4 +1,7 @@
 import React from "react";
+import { Link as LinkRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -6,8 +9,6 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MovieIcon from "@material-ui/icons/Movie";
-import InfoIcon from "@material-ui/icons/Info";
-import ForumIcon from "@material-ui/icons/Forum";
 import LockIcon from "@material-ui/icons/Lock";
 import Tooltip from "@material-ui/core/Tooltip";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
@@ -36,7 +37,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 const NavigationUnSigned = () => {
+  const history = useHistory();
   const classes = useStyles();
+
   return (
     <div className={classes.root}>
       <AppBar color="default" position="static">
@@ -55,6 +58,7 @@ const NavigationUnSigned = () => {
             <IconButton
               className={classes.blue}
               style={{ marginRight: "20px" }}
+              onClick={() => history.push("/sign In")}
             >
               <LockIcon />
             </IconButton>
@@ -67,6 +71,7 @@ const NavigationUnSigned = () => {
             <IconButton
               className={classes.blue}
               style={{ marginRight: "20px" }}
+              onClick={() => history.push("/register")}
             >
               <LockOpenIcon />
             </IconButton>
